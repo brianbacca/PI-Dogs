@@ -8,7 +8,7 @@ const { Dog, Temperament } = require("../db");
 
 const router = Router();
 //eliminar los valores duplicados
-Array.prototype.elReps = (function (a) {
+Array.prototype.unique = (function (a) {
   return function () {
     return this.filter(a);
   };
@@ -20,8 +20,8 @@ Array.prototype.elReps = (function (a) {
 // Ejemplo: router.use('/auth', authRouter);
 
 //get/dogs --trae todas las razas de perros y devuelve los datos de la ruta princial nombre, imagen, temperamento y peso.
-const API_KEY = "9984f51f-f7f5-4fca-9e74-e5263efc358f";
-const getDogs = async () => {
+const API_KEY = "9984f51f-f7f5-4fca-9e74-e5263efc358f"; // ponerla en el .env
+const getDogsApi = async () => {
   const api = await axios(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
   );
@@ -40,20 +40,29 @@ const getDogs = async () => {
   return response;
 };
 
+
 const getDogsDb = async () => {
-  return await Dog.findAll({
-    include: {
-      model: Temperament,
-      attributes: ["temperament"],
-      through: {
-        attributes: [],
-      },
-    },
+  let dogsDB = await Dog.findAll({ include: Temperament });
+
+  let result = dogsDB.map((d) => {
+    return {
+      id: d.id,
+      image: d.image,
+      name: d.name,
+      height: d.height,
+      weight: d.weight,
+      life_span: d.life_span,
+      temperament: d.dataValues.temperaments
+        .map((t) => t.temperament)
+        .join(", "),
+    };
   });
+  console.log(result);
+  return result;
 };
 
 const getDogsAll = async () => {
-  const apiInfo = await getDogs();
+  const apiInfo = await getDogsApi();
   const dbInfo = await getDogsDb();
   const infoTotal = apiInfo.concat(dbInfo);
   return infoTotal;
@@ -84,89 +93,60 @@ router.get("/dogs", async (req, res) => {
 
 router.get("/temperaments", async (req, res) => {
   try {
-    // nos traemos los temperamentos como no hay nada en db tenemos un obj= {}
-    const allTemperament = await Temperament.findAll();
-    if (allTemperament.length === 0) {
-      //si no hay nada hacemos entramos aca;
-      var arr = [];
-      const tempApi = await axios.get(
-        `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
-      );
+    //llamamos a la api
+    const temperamentsApi = await getDogsApi();
+    //mapeamos y nos traemos el arreglo de temperamentos
+    const temperaments = temperamentsApi.map((el) => el.temperament);
+    //quitamos el espacio de algunos temperamentos, aplanamos el array
+    const temp1 = temperaments.map((e) => e && e.split(", ")).flat();
 
-      //mapeamos y nos traemos el objeto.
-      const temperaments = tempApi.data.map((e) => {
-        const temp = e.temperament;
-        return temp;
-      });
-      // console.log(temperaments);
-      const temp2 = temperaments.map((e) => e && e.split(", ")).flat();
-      const tempSinR = temp2.elReps();
-      for (let i = 0; i < tempSinR.length; i++) {
-        let itm = tempSinR[i];
+    //tenemos los elementos repetidos y ademas tenemos un null(serian 2)
+    const temp2 = temp1.filter((el) => el && el === el);
+    // console.log(temp2);
+    //quitamos los repetidos
+    const temp = temp2.filter((el, i) => {
+      return temp2.indexOf(el) === i;
+    });
 
-        arr.push(itm);
-      }
-      console.log(arr);
-      // const arr2 = arr.forEach((el) => {
-      //   Temperament.create({
-      //     temperament: el,
-      //   });
-      // });
-      const arr2 = arr.map((el) => {
-        return {
-          temperament: el,
-        };
+    for (let i = 0; i < temp.length; i++) {
+      Temperament.create({
+        temperament: temp[i],
       });
-      const final = Temperament.bulkCreate(arr2);
-      res.send(final);
-    } else {
-      res.send(allTemperament);
     }
+
+    res.status(200).send(temp);
   } catch (err) {
     console.log('se encontro error en la ruta get"/temperaments" ', err);
   }
 });
+
+//-----------------------------
 
 // ----------------------------------------------------------------------------
 
 //--------------------------
 //todo esto me llega por formulario(body)
 router.post("/dog", async (req, res) => {
-  try {
-    let {
-      name,
-      life_span,
-      temperament,
-      origin,
-      height,
-      weight,
-      image,
-      createInDb,
-    } = req.body;
+  let { name, life_span, temperament, height, weight, image } = req.body;
 
-    // no le pasamos los temperamentos, realizamos la funcion aparte
-    let dogCreated = await Dog.create({
-      name,
-      life_span,
-      origin,
-      height,
-      weight,
-      image,
-      createInDb,
-    });
-    //encontrar los temperamentos que me llegen por body(formulario)
-    //los temeramentos los encuentro en Temperament,
-    let temperamentDb = await Temperament.findAll({
-      where: { temperament: temperament },
-    });
-    dogCreated.addTemperament(temperamentDb);
-    res.send("perro creado");
-  } catch (err) {
-    console.log('se encontro error en la ruta post"/dog" ', err);
-  }
+  // no le pasamos los temperamentos, realizamos la funcion aparte
+  let dogCreated = await Dog.create({
+    name,
+    life_span,
+    height,
+    weight,
+    image,
+  });
+  //encontrar los temperamentos que me llegen por body(formulario)
+  //los temeramentos los encuentro en Temperament,
+  let temperamentDb = await Temperament.findAll({
+    where: { temperament: temperament },
+  });
+  // console.log(temperamentDb);
+  await dogCreated.addTemperaments(temperamentDb);
+  res.send("perro creado");
 });
-
-router.get("/:id", async (req, res) => {
+router.get("/dogs/:id", async (req, res) => {
   try {
     const { id } = req.params;
     //realizamos la consulta a la api
@@ -184,4 +164,5 @@ router.get("/:id", async (req, res) => {
     console.log('se encontro error en la ruta get"/:id" ', err);
   }
 });
+
 module.exports = router;
