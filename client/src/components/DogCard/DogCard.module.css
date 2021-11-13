@@ -1,0 +1,23 @@
+.image{
+    border-radius: 10px;
+    width: 15vw;
+    height: 20vh;
+
+}
+
+.format{
+    list-style: none;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(252, 245, 245, 0.596);
+    border-radius: 10px;
+
+}
+
+.name{
+    font-size: 1.3rem;
+    text-align: center;
+    padding-top: 2rem;
+}
