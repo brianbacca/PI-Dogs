@@ -1,6 +1,7 @@
 import {
   GET_DOGS,
   GET_TEMPERAMENTS,
+  GET_DOGS_NAME,
   FILTER_TEMPERAMENTS,
   FILTER_CREATED,
   SORT_BY_NAME,
@@ -31,6 +32,23 @@ export function getTemperaments() {
       type: GET_TEMPERAMENTS,
       payload: temperaments.data,
     });
+  };
+}
+
+export function getDogsName(name) {
+  return async function (dispatch) {
+    try {
+      var dogsName = await axios.get(
+        `http://localhost:3001/dogs?name=${name}`,
+        {}
+      );
+      return dispatch({
+        type: GET_DOGS_NAME,
+        payload: dogsName.data,
+      });
+    } catch (err) {
+      console.log("Error en geetDogsName", err);
+    }
   };
 }
 

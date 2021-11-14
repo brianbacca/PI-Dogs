@@ -92,6 +92,7 @@ export default function DogsHome() {
         </div>
         <div>
           <select onChange={(e) => handleSortByName(e)}>
+            <option value="all">todos</option>
             <option value="asc">Ascendente ↑</option>
             <option value="desc">Descendente ↓</option>
           </select>
