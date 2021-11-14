@@ -38,13 +38,13 @@ export function getTemperaments() {
 export function getDogsName(name) {
   return async function (dispatch) {
     try {
-      var dogsName = await axios.get(
+      var dogsByname = await axios.get(
         `http://localhost:3001/dogs?name=${name}`,
         {}
       );
       return dispatch({
         type: GET_DOGS_NAME,
-        payload: dogsName.data,
+        payload: dogsByname.data,
       });
     } catch (err) {
       console.log("Error en geetDogsName", err);

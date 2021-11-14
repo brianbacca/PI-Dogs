@@ -3,14 +3,35 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDogsName } from "../../actions/index.js";
 
-export function SearchBar() {
+export default function SearchBar() {
   const dispatch = useDispatch();
-  const [searchBar, getSearchBar] = useState("");
+  const [search, setSearch] = useState("");
+
+  function handleInputChange(e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(getDogsName(search));
+    setSearch("");
+  }
 
   return (
     <div>
-      <input type="text" placeholder="search" />
-      <button type="submit">Search</button>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => handleInputChange(e)}
+            value={search}
+          />
+          <button type="submit" onClick={(e) => handleSubmit(e)}>
+            Search
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

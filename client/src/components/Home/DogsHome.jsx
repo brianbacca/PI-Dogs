@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
 import Paginado from "../Paginado/Paginado.jsx";
-
+import SearchBar from "../SearchBar/SearchBar.jsx";
 export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
@@ -74,7 +74,6 @@ export default function DogsHome() {
       <div>
         <nav>
           <div>
-            search bar...
             <div>
               <Link to="/newDog">Create new Dog</Link>
             </div>
@@ -118,6 +117,7 @@ export default function DogsHome() {
             allDogs={allDogs.length}
             paginado={paginado}
           />
+          <SearchBar />
           <ul>
             {currentDogs &&
               currentDogs.map((d) => {
