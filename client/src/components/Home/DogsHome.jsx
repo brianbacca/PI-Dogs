@@ -4,6 +4,8 @@ import {
   getDogs,
   getTemperaments,
   filterByTemps,
+  filterCreated,
+  filterSortByName,
 } from "../../actions/index.js";
 import { Link } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
@@ -15,6 +17,7 @@ export default function DogsHome() {
   const temperaments = useSelector((state) => state.temperaments);
   //Estados:
   //pagina actual-----
+  const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   //perros por pagina----
   const [dogsPerPage, setDogsPage] = useState(8);
@@ -48,6 +51,18 @@ export default function DogsHome() {
     e.preventDefault();
     dispatch(filterByTemps(e.target.value));
   }
+
+  function handleFilterCreated(e) {
+    e.preventDefault();
+    dispatch(filterCreated(e.target.value));
+  }
+
+  function handleSortByName(e) {
+    e.preventDefault();
+    dispatch(filterSortByName(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
+  }
   //   [ ] Botones/Opciones para filtrar por:
   // Temperamento
   // Raza existente (es decir las que vienen de la API) o agregada por nosotros (creadas mediante el form)
@@ -76,20 +91,18 @@ export default function DogsHome() {
           </button>
         </div>
         <div>
+          <select onChange={(e) => handleSortByName(e)}>
+            <option value="asc">Ascendente ↑</option>
+            <option value="desc">Descendente ↓</option>
+          </select>
           <select>
             <option value="ascP">Asendente</option>
             <option value="desP">Desendente</option>
           </select>
-          <select>
-            <option value="all" key="all">
-              all dogs
-            </option>
-            <option value="number" key="number">
-              Api
-            </option>
-            <option value="notnumber" key="notnumber">
-              Created
-            </option>
+          <select onChange={(e) => handleFilterCreated(e)}>
+            <option value="All">Todos</option>
+            <option value="created">Creados</option>
+            <option value="api">Api</option>
           </select>
           <select onChange={(e) => handleTemp(e)}>
             <option value="allT">All temperaments</option>

@@ -1,4 +1,10 @@
-import { GET_DOGS, GET_TEMPERAMENTS, FILTER_TEMPERAMENTS } from "./constant.js";
+import {
+  GET_DOGS,
+  GET_TEMPERAMENTS,
+  FILTER_TEMPERAMENTS,
+  FILTER_CREATED,
+  SORT_BY_NAME,
+} from "./constant.js";
 
 import axios from "axios";
 
@@ -32,5 +38,19 @@ export function filterByTemps(payload) {
   return {
     type: FILTER_TEMPERAMENTS,
     payload,
+  };
+}
+
+export function filterCreated(payload) {
+  return {
+    type: FILTER_CREATED,
+    payload,
+  };
+}
+
+export function filterSortByName(paylod) {
+  return {
+    type: SORT_BY_NAME,
+    paylod,
   };
 }
