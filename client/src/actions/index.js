@@ -2,6 +2,7 @@ import {
   GET_DOGS,
   GET_TEMPERAMENTS,
   GET_DOGS_NAME,
+  POST_DOGS,
   FILTER_TEMPERAMENTS,
   FILTER_CREATED,
   SORT_BY_NAME,
@@ -48,6 +49,16 @@ export function getDogsName(name) {
       });
     } catch (err) {
       console.log("Error en geetDogsName", err);
+    }
+  };
+}
+export function postDog(payload) {
+  return async function (dispatch) {
+    try {
+      var post = await axios.post("http://localhost:3001/dog", payload);
+      return post;
+    } catch (err) {
+      console.log("Error en postDog", err);
     }
   };
 }

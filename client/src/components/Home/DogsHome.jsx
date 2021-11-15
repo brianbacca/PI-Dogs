@@ -75,7 +75,7 @@ export default function DogsHome() {
         <nav>
           <div>
             <div>
-              <Link to="/newDog">Create new Dog</Link>
+              <Link to="/dog">Create new Dog</Link>
             </div>
           </div>
         </nav>

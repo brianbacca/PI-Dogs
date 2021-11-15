@@ -2,6 +2,7 @@ import {
   GET_DOGS,
   GET_TEMPERAMENTS,
   GET_DOGS_NAME,
+  POST_DOGS,
   FILTER_TEMPERAMENTS,
   FILTER_CREATED,
   SORT_BY_NAME,
@@ -10,6 +11,7 @@ import {
 const initialState = {
   dogs: [],
   allDogs: [],
+  temperaments: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -30,6 +32,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogs: action.payload,
       };
+    case POST_DOGS:
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+
     case FILTER_TEMPERAMENTS:
       let allDogs = state.allDogs;
       let tempfiltrados =
