@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "./DogCard.module.css";
 
-export default function DogCard({ name, temperament, image, weight }) {
+export default function DogCard({
+  name,
+  temperament,
+  image,
+  weight_min,
+  weight_max,
+}) {
   return (
     <div>
       <li className={styles.format}>
@@ -12,7 +18,9 @@ export default function DogCard({ name, temperament, image, weight }) {
           <span>{temperament}</span>
         </div>
         <h4>Weight:</h4>
-        <span>{weight}</span>
+        <span>{weight_min} kg</span>
+        <br></br>
+        <span>{weight_max} kg</span>
       </li>
     </div>
   );

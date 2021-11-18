@@ -16,11 +16,19 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      height: {
+      height_min: {
         type: DataTypes.BIGINT,
         allowNull: false,
       },
-      weight: {
+      height_max: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+      weight_min: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+      weight_max: {
         type: DataTypes.BIGINT,
         allowNull: false,
       },
@@ -28,11 +36,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      // createInDb: {
-      //   type: DataTypes.BOOLEAN,
-      //   allowNull: false,
-      //   defaultValue: true,
-      // },
+      image: {
+        type: DataTypes.STRING,
+      },
+      createInDb: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
     },
     { timestamps: false }
   );

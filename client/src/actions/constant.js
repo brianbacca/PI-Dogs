@@ -5,3 +5,5 @@ export const POST_DOGS = "POST_DOGS";
 export const FILTER_TEMPERAMENTS = "FILTER_TEMPERAMENTS";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const SORT_BY_NAME = "SORT_BY_NAME";
+export const SORT_BY_WEIGHT = "SORT_BY_WEIGHT";
+export const GET_DETAILS = "GET_DETAILS";

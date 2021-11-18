@@ -7,9 +7,10 @@ export default function SearchBar() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
-  function handleInputChange(e) {
+   function handleInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
+    dispatch(getDogsName(e.target.value));
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function SearchBar() {
           <input
             type="text"
             placeholder="Search..."
+            autoComplete="on"
             onChange={(e) => handleInputChange(e)}
             value={search}
           />

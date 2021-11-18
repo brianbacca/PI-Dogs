@@ -2,11 +2,17 @@
 import React from "react";
 import styles from "./Paginado.module.css";
 
-export default function Paginado({ dogsPerPage, allDogs, paginado }) {
+export default function Paginado({
+  dogsPerPage,
+  allDogs,
+  paginado,
+  primeraPag,
+  lastPage,
+}) {
   const pageNumber = [];
 
   //itero saco el resto entre todos los perros y los que quiero tener por pagina(redondeo para arriba)
-  for (let i = 0; i <= Math.ceil(allDogs / dogsPerPage); i++) {
+  for (let i = 0; i < Math.ceil(allDogs / dogsPerPage); i++) {
     pageNumber.push(i + 1);
   }
   return (
@@ -15,7 +21,7 @@ export default function Paginado({ dogsPerPage, allDogs, paginado }) {
         <ul>
           {pageNumber &&
             pageNumber.map((number) => (
-              <li key={number} className={styles.paginado}>
+              <li key={number} className={styles.list}>
                 <a onClick={() => paginado(number)}>{number}</a>
               </li>
             ))}

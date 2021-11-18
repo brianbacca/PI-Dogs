@@ -1,13 +1,14 @@
-.paginado{
-    display: inline;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    background-color: blanchedalmond;
-    border-radius: 15px;
-    margin: 4px;
+.list {
+  display: inline;
+  vertical-align: top;
+  border: lightgray 0.5px solid;
+  font-size: 0.8em;
+  padding: 0.3em;
+  color: rgb(12, 12, 11);
 }
-.pepe{
 
+.list:hover {
+  background-color: lightgray;
+  color: black;
+  cursor: pointer;
 }

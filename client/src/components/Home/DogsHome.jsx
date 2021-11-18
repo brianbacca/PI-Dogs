@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -5,7 +6,8 @@ import {
   getTemperaments,
   filterByTemps,
   filterCreated,
-  filterSortByName,
+  sortByName,
+  sortbyweight,
 } from "../../actions/index.js";
 import { Link } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
@@ -25,6 +27,13 @@ export default function DogsHome() {
   //ultima posicion del perro
   const indexLastDog = currentPage * dogsPerPage;
   const indexFirstDog = indexLastDog - dogsPerPage;
+
+  const primeraPag = () => {
+    setCurrentPage(1);
+  };
+  const lastPage = () => {
+    setCurrentPage(Math.ceil(allDogs.length / dogsPerPage));
+  };
   //const que guarde todos los personajes que se tiene en cada pagina
   const currentDogs = allDogs.slice(indexFirstDog, indexLastDog);
   //seteo la pagina en el numero de pagina que me pasan
@@ -57,9 +66,15 @@ export default function DogsHome() {
     dispatch(filterCreated(e.target.value));
   }
 
-  function handleSortByName(e) {
+  function handleSort(e) {
     e.preventDefault();
-    dispatch(filterSortByName(e.target.value));
+    dispatch(sortByName(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+  function handleSortWeight(e) {
+    e.preventDefault();
+    dispatch(sortbyweight(e.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
@@ -75,7 +90,7 @@ export default function DogsHome() {
         <nav>
           <div>
             <div>
-              <Link to="/dog">Create new Dog</Link>
+              <Link to="/newDog">Create new Dog</Link>
             </div>
           </div>
         </nav>
@@ -90,14 +105,13 @@ export default function DogsHome() {
           </button>
         </div>
         <div>
-          <select onChange={(e) => handleSortByName(e)}>
-            <option value="all">todos</option>
-            <option value="asc">Ascendente ↑</option>
-            <option value="desc">Descendente ↓</option>
+          <select onChange={(e) => handleSort(e)}>
+            <option value="asc">Ascendente </option>
+            <option value="desc">Descendente </option>
           </select>
-          <select>
-            <option value="ascP">Asendente</option>
-            <option value="desP">Desendente</option>
+          <select onChange={(e) => handleSortWeight(e)}>
+            <option value="ascW">Asendente</option>
+            <option value="desW">Desendente</option>
           </select>
           <select onChange={(e) => handleFilterCreated(e)}>
             <option value="All">Todos</option>
@@ -112,22 +126,25 @@ export default function DogsHome() {
               </option>
             ))}
           </select>
+          <button onClick={primeraPag}>&lt;</button>
           <Paginado
             dogsPerPage={dogsPerPage}
             allDogs={allDogs.length}
             paginado={paginado}
           />
+          <button onClick={lastPage}>&gt;</button>
           <SearchBar />
           <ul>
             {currentDogs &&
               currentDogs.map((d) => {
                 return (
                   <div key={d.id}>
-                    <Link to={"/dogs/"}>
+                    <Link to={"/dogs/" + d.id}>
                       <DogCard
                         name={d.name}
                         image={d.image}
-                        weight={d.weight}
+                        weight_min={d.weight_min}
+                        weight_max={d.weight_max}
                         temperament={d.temperament}
                       />
                     </Link>
