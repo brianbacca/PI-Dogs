@@ -1,0 +1,49 @@
+.fondo {
+  background-image: url("https://www.wallpapertip.com/wmimgs/28-286647_262804-title-animal-dachshund-dogs-wallpaper-sausage-dog.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  color: rgba(245, 245, 245, 0.74);
+  position: relative;
+  top: 150px;
+  left: 150px;
+  font-size: 60px;
+  line-height: 1.2;
+  transition: background-color 200ms ease;
+  text-shadow: 0px 0px 10px black, 0px 0px 50px black;
+  /* box-shadow: 0px 0px 10px rgba(32, 2, 2, 0.596); */
+
+  content: 300px 70px;
+  width: 270px;
+  height: 70px;
+}
+
+.enter {
+  position: relative;
+  top: 140px;
+  left: 240px;
+  width: 100px;
+  height: 40px;
+  transform: translateY(-50%);
+  box-shadow: 0px 0px 10px rgba(32, 2, 2, 0.596);
+  text-shadow: 0px 0px 10px black, 0px 0px 50px black;
+  color: black;
+  background-color: transparent;
+  color: rgba(245, 245, 245, 0.74);
+  font-size: 19px;
+  border: blanchedalmond;
+  transition: background 1s, width 0.5s, height 0.5s, border-radius 0.5s;
+}
+
+.enter:hover {
+  background-color: transparent;
+  color: rgba(17, 6, 6, 0.808);
+  height: 50px;
+  border-radius: 5px;
+  font-size: 21px;
+}

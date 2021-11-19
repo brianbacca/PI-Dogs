@@ -6,8 +6,6 @@ export default function Paginado({
   dogsPerPage,
   allDogs,
   paginado,
-  primeraPag,
-  lastPage,
 }) {
   const pageNumber = [];
 

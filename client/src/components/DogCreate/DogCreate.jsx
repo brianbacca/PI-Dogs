@@ -9,8 +9,9 @@ function validate(input) {
   let errors = {};
   if (!input.name) {
     errors.name = "name is required";
-  } else if (!/\S+@\S+\.\S+/.test(input.name)) {
-    errors.name = "the name can only contain letters";
+  } else if (!/^[A-Z]+[A-Za-z\s]+$/g.test(input.name)) {
+    errors.name =
+      "the first letter must be capitalized and the name can only contain letters";
   }
   if (!input.height_min) {
     errors.height_min = "height min is required";
@@ -26,29 +27,29 @@ function validate(input) {
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_max)) {
     errors.height_max = "max value has to be numeric, no comma is allowed";
   }
-   if (!input.weight_min) {
-     errors.weight_min = "weight min is required";
-   } else if (input.weight_min <= 0) {
-     errors.weight_min = "min weight should be higher than 0!";
-   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)) {
-     errors.weight_min = "min value has to be numeric, no comma is allowed";
-   }
-     if (!input.weight_max) {
-       errors.weight_max = "weight max is required";
-     } else if (input.weight_max <= input.weight_min) {
-       errors.weight_max = "min cannot be greater than or equal to max";
-     } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
-       errors.weight_max = "max value has to be numeric, no comma is allowed";
-     }
-   
+  if (!input.weight_min) {
+    errors.weight_min = "weight min is required";
+  } else if (input.weight_min <= 0) {
+    errors.weight_min = "min weight should be higher than 0!";
+  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)) {
+    errors.weight_min = "min value has to be numeric, no comma is allowed";
+  }
+  if (!input.weight_max) {
+    errors.weight_max = "weight max is required";
+  } else if (input.weight_max <= input.weight_min) {
+    errors.weight_max = "min cannot be greater than or equal to max";
+  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
+    errors.weight_max = "max value has to be numeric, no comma is allowed";
+  }
+
   if (!input.life_span) {
     errors.life_span = "life span is required";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_time_max)) {
-    errors.life_span = "life span value has to be numeric, no comma is allowed";
   }
   if (
-    input.image &&
-    !/[a-z0-9-.]+\.[a-z]{2,4}\/?([^\s<>#%",{}\\|^[\]`]+)?$/.test(input.img)
+    !input.image &&
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/.test(
+      input.image
+    )
   ) {
     errors.image =
       "It must be a url, if it is empty, a default image will be given";
@@ -60,6 +61,7 @@ function validate(input) {
 export default function DogCreate() {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
+
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
@@ -103,18 +105,30 @@ export default function DogCreate() {
 
   function handleSumbit(e) {
     e.preventDefault();
-    dispatch(postDog(input));
-    alert("perro creado");
-    setInput({
-      name: "",
-      height_min: "",
-      height_max: "",
-      weight_min: "",
-      weight_max: "",
-      life_span: "",
-      temperament: [],
-      image: "",
-    });
+    if (
+      Object.keys(errors).length === 0 &&
+      input.name !== "" &&
+      input.height_min !== "" &&
+      input.height_max !== "" &&
+      input.weight_min !== "" &&
+      input.weight_max !== "" &&
+      input.life_span !== "" &&
+      input.temperament.length !== 0
+    ) {
+      dispatch(postDog(input));
+      alert("perro creado");
+      setInput({
+        name: "",
+        height_min: "",
+        height_max: "",
+        weight_min: "",
+        weight_max: "",
+        life_span: "",
+        temperament: [],
+        image: "",
+      });
+    } else {
+    }
   }
   return (
     <div>
@@ -138,6 +152,7 @@ export default function DogCreate() {
             <label>height.min</label>
             <input
               type="number"
+              min="0"
               value={input.height_min}
               name="height_min"
               onChange={(e) => handleChange(e)}
@@ -148,6 +163,7 @@ export default function DogCreate() {
             <label>height.max</label>
             <input
               type="number"
+              min="0"
               value={input.height_max}
               name="height_max"
               onChange={(e) => handleChange(e)}
@@ -158,6 +174,7 @@ export default function DogCreate() {
             <label>weight.min</label>
             <input
               type="number"
+              min="0"
               value={input.weight_min}
               name="weight_min"
               onChange={(e) => handleChange(e)}
@@ -168,6 +185,7 @@ export default function DogCreate() {
             <label>weight.max</label>
             <input
               type="number"
+              min="0"
               value={input.weight_max}
               name="weight_max"
               onChange={(e) => handleChange(e)}
@@ -178,6 +196,7 @@ export default function DogCreate() {
             <label>life span</label>
             <input
               type="number"
+              min="0"
               value={input.life_span}
               name="life_span"
               onChange={(e) => handleChange(e)}
