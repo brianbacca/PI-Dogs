@@ -19,7 +19,14 @@ export default function Detail() {
     <div>
       <h1>{Dog.name}</h1>
       <div>
-        <img src={Dog.image} alt="Img not found" />
+        <img
+          src={
+            Dog.image
+              ? Dog.image
+              : "https://e.rpp-noticias.io/large/2016/03/24/055705_104904.jpg"
+          }
+          alt="Img not found"
+        />
         <div>
           <div>
             <h2>Height:</h2>
@@ -37,12 +44,10 @@ export default function Detail() {
             <h2>Life Span:</h2>
             <p>{Dog.life_span}</p>
           </div>
-          <div>Temperaments:</div>
-          <p>
-            {!Dog.createInDb
-              ? Dog.temperament
-              : Dog.Temperaments.map((e) => e.temperament + " ")}
-          </p>
+          <div>
+            <h2>Temperaments:</h2>
+          </div>
+          <p>{Dog.temperament}</p>
         </div>
       </div>
       <Link to="/dogs">

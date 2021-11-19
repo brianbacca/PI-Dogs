@@ -52,7 +52,7 @@ const getDogsDb = async () => {
 
   let result = dogsDB.map((d) => {
     return {
-      id: d.id,
+      id: d.id + 300,
       image: d.image,
       name: d.name,
       height_min: d.height_min,
@@ -132,7 +132,12 @@ router.get("/temperaments", async (req, res) => {
 });
 
 //-----------------------------
-
+// router.get("/names", async (req, res) => {
+//   const allNames = await getDogsAll();
+//   // console.log("nombres", allNames);
+//   const namess = allNames.map((el) => el.name);
+//   res.send(namess);
+// });
 // ----------------------------------------------------------------------------
 
 //--------------------------

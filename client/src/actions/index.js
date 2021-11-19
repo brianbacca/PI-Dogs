@@ -80,12 +80,14 @@ export function filterCreated(payload) {
   };
 }
 
-export function sortByName(paylod) {
+export function sortByName(payload) {
   return {
     type: SORT_BY_NAME,
-    paylod,
+    payload,
   };
 }
+
+
 
 export function sortbyweight(payload) {
   return {
@@ -107,6 +109,16 @@ export function getDogsDetail(id) {
     }
   };
 }
+
+// export function getNames() {
+//   return async function (dispatch) {
+//     var json = await axios.get("http://localhost:3001/names", {});
+//     return dispatch({
+//       type: "GET_NAMES",
+//       payload: json.data,
+//     });
+//   };
+// }
 
 // export const postDog = ({
 //   name,

@@ -20,6 +20,7 @@ export default function DogsHome() {
   //Estados:
   //pagina actual-----
   const [orden, setOrden] = useState("");
+  const [ordenAz, setOrdenAz] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   //perros por pagina----
   const [dogsPerPage, setDogsPage] = useState(8);
@@ -70,7 +71,7 @@ export default function DogsHome() {
     e.preventDefault();
     dispatch(sortByName(e.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrdenAz(`Ordenado ${e.target.value}`);
   }
   function handleSortWeight(e) {
     e.preventDefault();
@@ -78,12 +79,7 @@ export default function DogsHome() {
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
-  //   [ ] Botones/Opciones para filtrar por:
-  // Temperamento
-  // Raza existente (es decir las que vienen de la API) o agregada por nosotros (creadas mediante el form)
-  //   [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
-  // Orden alfabético
-  // Peso
+
   return (
     <div>
       <div>
@@ -106,6 +102,7 @@ export default function DogsHome() {
         </div>
         <div>
           <select onChange={(e) => handleSort(e)}>
+            <option value="todos">todos</option>
             <option value="asc">Ascendente </option>
             <option value="desc">Descendente </option>
           </select>
@@ -142,7 +139,11 @@ export default function DogsHome() {
                     <Link to={"/dogs/" + d.id}>
                       <DogCard
                         name={d.name}
-                        image={d.image}
+                        image={
+                          d.image
+                            ? d.image
+                            : "https://e.rpp-noticias.io/large/2016/03/24/055705_104904.jpg"
+                        }
                         weight_min={d.weight_min}
                         weight_max={d.weight_max}
                         temperament={d.temperament}

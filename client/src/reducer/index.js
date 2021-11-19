@@ -82,31 +82,55 @@ export default function rootReducer(state = initialState, action) {
         dogs: sorteWeight,
       };
     case SORT_BY_NAME:
-      const sort =
-        action.payload === "asc"
-          ? state.dogs.sort(function (a, b) {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return 1;
-              }
-              if (a.name.toLowerCase() < b.name.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.dogs.sort(function (a, b) {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return -1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
+      let sortDog;
+      if (action.payload === "todos") {
+        sortDog = state.dogs;
+      }
+      if (action.payload === "asc") {
+        sortDog = state.dogs.sort(function (a, b) {
+          if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+            return 1;
+          }
+          if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+      if (action.payload === "desc") {
+        sortDog = state.dogs.sort(function (a, b) {
+          if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+            return -1;
+          }
+          if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
+      }
       return {
         ...state,
-        dogs: sort,
+        dogs: sortDog,
       };
+
     default:
       return state;
   }
 }
+
+// const doggi = state.dogs.map((n) => n);
+// const sortAZ = doggi.sort((a, b) => {
+//   if (a.name < b.name) return -1;
+//   else if (a.name > b.name) return 1;
+//   else return 0;
+// });
+// const sortZA = doggi.sort((a, b) => {
+//   if (a.name < b.name) return 1;
+//   else if (a.name > b.name) return -1;
+//   else return 0;
+// });
+
+// return {
+//   ...state,
+//   dogs: action.paylod === "asc" ? sortAZ : sortZA,
+// };
