@@ -7,7 +7,7 @@ import {
   FILTER_CREATED,
   SORT_BY_NAME,
   SORT_BY_WEIGHT,
-  POST_DOGS,
+  SPIN_LOADING,
 } from "./constant.js";
 
 import axios from "axios";
@@ -87,8 +87,6 @@ export function sortByName(payload) {
   };
 }
 
-
-
 export function sortbyweight(payload) {
   return {
     type: SORT_BY_WEIGHT,
@@ -107,6 +105,13 @@ export function getDogsDetail(id) {
     } catch (err) {
       console.log("error en getDogsDetails", err);
     }
+  };
+}
+
+export function spinLoadader(paylaod) {
+  return {
+    type: SPIN_LOADING,
+    paylaod,
   };
 }
 

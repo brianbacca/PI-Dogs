@@ -8,17 +8,22 @@ import {
   filterCreated,
   sortByName,
   sortbyweight,
+  spinLoadader,
 } from "../../actions/index.js";
 import { Link } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
 import Paginado from "../Paginado/Paginado.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import Loading from "../Loading/Loading.jsx";
+import styles from "./DogsHome.module.css";
 export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
+  const loading = useSelector((state) => state.Loading);
   //Estados:
   //pagina actual-----
+
   const [orden, setOrden] = useState("");
   const [ordenAz, setOrdenAz] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +48,7 @@ export default function DogsHome() {
   };
 
   //nos traemos del estado los perros cuando el componente se monta.
+
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);
@@ -81,7 +87,7 @@ export default function DogsHome() {
   }
 
   return (
-    <div>
+    <div className={styles.bkg}>
       <div>
         <nav>
           <div>
@@ -131,8 +137,13 @@ export default function DogsHome() {
           />
           <button onClick={lastPage}>&gt;</button>
           <SearchBar />
-          <ul>
-            {currentDogs &&
+          <ul className={styles.cards}>
+            {loading ? (
+              <div>
+                <Loading />
+              </div>
+            ) : (
+              currentDogs &&
               currentDogs.map((d) => {
                 return (
                   <div key={d.id}>
@@ -151,7 +162,8 @@ export default function DogsHome() {
                     </Link>
                   </div>
                 );
-              })}
+              })
+            )}
           </ul>
         </div>
       </div>

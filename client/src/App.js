@@ -1,11 +1,13 @@
-
+import React from "react";
 import LandingPage from "./components/LandigPage/LandingPage";
 import DogsHome from "./components/Home/DogsHome";
 import DogCreate from "./components/DogCreate/DogCreate";
 import Details from "./components/Details/Details";
 import { Route, Routes } from "react-router-dom";
 
+
 function App() {
+
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />

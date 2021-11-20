@@ -8,6 +8,7 @@ import {
   FILTER_CREATED,
   SORT_BY_NAME,
   SORT_BY_WEIGHT,
+  SPIN_LOADING,
 } from "../actions/constant.js";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   allDogs: [],
   temperaments: [],
   datails: [],
+  Loading: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -111,6 +113,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogs: sortDog,
+      };
+    case SPIN_LOADING:
+      return {
+        ...state,
+        Loading: action.payload,
       };
 
     default:

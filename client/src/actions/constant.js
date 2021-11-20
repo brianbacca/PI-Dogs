@@ -7,3 +7,4 @@ export const FILTER_CREATED = "FILTER_CREATED";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_WEIGHT = "SORT_BY_WEIGHT";
 export const GET_DETAILS = "GET_DETAILS";
+export const SPIN_LOADING = "SPIN_LOADING";

@@ -10,18 +10,22 @@ export default function DogCard({
 }) {
   return (
     <div>
-      <li className={styles.format}>
-        <h3>{name}</h3>
-        <img mg className={styles.image} src={image} alt="img not found" />
-        <div>
-          <h4>Temperament:</h4>
-          <span>{temperament}</span>
-        </div>
-        <h4>Weight:</h4>
-        <span>{weight_min} kg</span>
-        <br></br>
-        <span>{weight_max} kg</span>
-      </li>
+      <div className={styles.card}>
+        <li>
+          <h3 className={styles.name}>{name}</h3>
+          <img mg className={styles.image} src={image} alt="img not found" />
+          <div className={styles.otros}>
+            <h4>Temperament:</h4>
+            <span>{temperament}</span>
+          </div>
+          <div className={styles.otros}>
+            <h4>Weight:</h4>
+            <span>
+              {weight_min}-{weight_max} Kg
+            </span>
+          </div>
+        </li>
+      </div>
     </div>
   );
 }

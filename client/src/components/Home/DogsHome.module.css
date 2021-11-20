@@ -1,0 +1,14 @@
+.cards {
+  width: 100%;
+  max-width: 1200px;
+  height: 430px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+.bkg {
+  background-color: rgba(250, 249, 250, 0.664);
+}
+
+/* https://www.gratistodo.com/wp-content/uploads/2016/11/Fondos-pantalla-perros-11.jpg */
