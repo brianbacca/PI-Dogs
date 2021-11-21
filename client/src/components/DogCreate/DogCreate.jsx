@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDog } from "../../actions";
-
+import Nav from "../Nav/Nav";
+import SearchBar from "../SearchBar/SearchBar";
 //------------------------------------------------------
 function validate(input) {
   let errors = {};
@@ -132,9 +133,7 @@ export default function DogCreate() {
   }
   return (
     <div>
-      <Link to="/dogs">
-        <button>go back</button>
-      </Link>
+      <Nav />
       <h1>Crea tu perro</h1>
       <form onSubmit={(e) => handleSumbit(e)}>
         <div>

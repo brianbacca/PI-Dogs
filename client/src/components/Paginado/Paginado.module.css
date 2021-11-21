@@ -1,14 +1,43 @@
 .list {
   display: inline;
-  vertical-align: top;
-  border: lightgray 0.5px solid;
-  font-size: 0.8em;
-  padding: 0.3em;
-  color: rgb(12, 12, 11);
+  color: black;
+  float: left;
+  padding: 4px;
+  /* text-decoration: none; */
+
+  /* border-radius: 15px; */
+  margin: 6px;
+  /* background-color: whitesmoke; */
+  /* overflow: hidden; */
+  transition: background-color 200ms ease, transform 0.5s;
+  text-shadow: 0px 0px 10px black, 0px 0px 50px rgb(93, 86, 86);
+  box-shadow: 0px 0px 10px rgba(32, 2, 2, 0.596);
+  transition: all 0.25s;
+  width: 20px;
 }
 
 .list:hover {
-  background-color: lightgray;
+  transform: translateY(-2px);
+  background-color: rgba(7, 6, 6, 0.185);
   color: black;
   cursor: pointer;
+}
+
+.ul {
+  position: absolute;
+  left: 310px;
+  top: 250px;
+  background-color: white;
+  padding: 0;
+  text-align: center;
+  color: brown;
+  font-size: 19px;
+  font-weight: 450;
+  transition: 0.2s linear;
+  margin-bottom: 40px;
+  width: 20px;
+  display: flex;
+}
+
+.num {
 }

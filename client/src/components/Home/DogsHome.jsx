@@ -15,20 +15,21 @@ import DogCard from "../DogCard/DogCard";
 import Paginado from "../Paginado/Paginado.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Loading from "../Loading/Loading.jsx";
+import Nav from "../Nav/Nav.jsx";
 import styles from "./DogsHome.module.css";
 export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
-  const loading = useSelector((state) => state.Loading);
-  //Estados:
-  //pagina actual-----
+  // const loading = useSelector((state) => state.Loading);
 
+  //pagina actual-----
+  // const [loading, setLoading] = useState(false);
   const [orden, setOrden] = useState("");
   const [ordenAz, setOrdenAz] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   //perros por pagina----
-  const [dogsPerPage, setDogsPage] = useState(8);
+  const [dogsPerPage, setDogsPage] = useState(9);
 
   //ultima posicion del perro
   const indexLastDog = currentPage * dogsPerPage;
@@ -91,14 +92,15 @@ export default function DogsHome() {
       <div>
         <nav>
           <div>
-            <div>
-              <Link to="/newDog">Create new Dog</Link>
-            </div>
+            <Nav />
+          </div>
+          <div>
+            <SearchBar />
           </div>
         </nav>
-        <h1>Pichichens</h1>
         <div>
           <button
+            className={styles.button}
             onClick={(e) => {
               handleClick(e);
             }}
@@ -107,47 +109,51 @@ export default function DogsHome() {
           </button>
         </div>
         <div>
-          <select onChange={(e) => handleSort(e)}>
-            <option value="todos">todos</option>
-            <option value="asc">Ascendente </option>
-            <option value="desc">Descendente </option>
-          </select>
-          <select onChange={(e) => handleSortWeight(e)}>
-            <option value="ascW">Asendente</option>
-            <option value="desW">Desendente</option>
-          </select>
-          <select onChange={(e) => handleFilterCreated(e)}>
-            <option value="All">Todos</option>
-            <option value="created">Creados</option>
-            <option value="api">Api</option>
-          </select>
-          <select onChange={(e) => handleTemp(e)}>
-            <option value="allT">All temperaments</option>
-            {temperaments?.map((d) => (
-              <option key={d} value={d}>
-                {d}
-              </option>
-            ))}
-          </select>
-          <button onClick={primeraPag}>&lt;</button>
-          <Paginado
-            dogsPerPage={dogsPerPage}
-            allDogs={allDogs.length}
-            paginado={paginado}
-          />
-          <button onClick={lastPage}>&gt;</button>
-          <SearchBar />
+          <div className={styles.select}>
+            <select
+              className={styles.selectInd}
+              onChange={(e) => handleSort(e)}
+            >
+              <option value="todos">todos</option>
+              <option value="asc">Ascendente </option>
+              <option value="desc">Descendente </option>
+            </select>
+            <select
+              className={styles.selectInd}
+              onChange={(e) => handleSortWeight(e)}
+            >
+              <option value="ascW">Asendente</option>
+              <option value="desW">Desendente</option>
+            </select>
+            <select
+              className={styles.selectInd}
+              onChange={(e) => handleFilterCreated(e)}
+            >
+              <option value="All">Todos</option>
+              <option value="created">Creados</option>
+              <option value="api">Api</option>
+            </select>
+            <select
+              className={styles.selectInd}
+              onChange={(e) => handleTemp(e)}
+            >
+              <option value="allT">All temperaments</option>
+              {temperaments?.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <ul className={styles.cards}>
-            {loading ? (
-              <div>
-                <Loading />
-              </div>
+            {!currentDogs.length ? (
+              <Loading />
             ) : (
-              currentDogs &&
               currentDogs.map((d) => {
                 return (
                   <div key={d.id}>
-                    <Link to={"/dogs/" + d.id}>
+                    <Link className={styles.cardLink} to={"/dogs/" + d.id}>
                       <DogCard
                         name={d.name}
                         image={
@@ -167,6 +173,16 @@ export default function DogsHome() {
           </ul>
         </div>
       </div>
+      <div>
+        {/* <button onClick={primeraPag}>&lt;</button> */}
+        <Paginado
+          primeraPag={primeraPag}
+          dogsPerPage={dogsPerPage}
+          allDogs={allDogs.length}
+          paginado={paginado}
+        />
+      </div>
+      {/* <button onClick={lastPage}>&gt;</button> */}
     </div>
   );
 }

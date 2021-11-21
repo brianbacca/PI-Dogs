@@ -1,4 +1,5 @@
 .cards {
+  padding-top: 200px;
   width: 100%;
   max-width: 1200px;
   height: 430px;
@@ -8,7 +9,84 @@
   margin: auto;
 }
 .bkg {
-  background-color: rgba(250, 249, 250, 0.664);
+  width: max-content;
+  height: max-content;
 }
 
-/* https://www.gratistodo.com/wp-content/uploads/2016/11/Fondos-pantalla-perros-11.jpg */
+.cardLink {
+  text-decoration: none;
+  color: black;
+}
+
+.select {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+  position: relative;
+  top: 95px;
+  height: 30px;
+  text-align-last: center;
+}
+.selectInd {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background-color: #444b5a;
+  color: #ffffff;
+  border: 2px solid #444b5a;
+  border-radius: 1px;
+  background-repeat: no-repeat;
+  background-size: 47px;
+  background-position: 247px 0.5px;
+  outline: none;
+  box-shadow: 0 0 20px rgb(10, 8, 8);
+  transition: background 0.5s;
+}
+.selectInd:-ms-expand {
+  display: none;
+}
+.selectInd:hover {
+  border: 2px solid #2b3242;
+  background-color: whitesmoke;
+  color: #444b5a;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  position: relative;
+  left: 645px;
+  top: 90px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background-color: #444b5a;
+  color: #ffffff;
+  border: 2px solid #444b5a;
+  border-radius: 1px;
+  background-repeat: no-repeat;
+  background-size: 47px;
+  background-position: 247px 0.5px;
+  outline: none;
+  box-shadow: 0 0 20px rgb(10, 8, 8);
+  transition: background 0.5s;
+}
+
+.button:hover {
+  border: 2px solid #2b3242;
+  background-color: whitesmoke;
+  color: #444b5a;
+}

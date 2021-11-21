@@ -3,30 +3,24 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogsDetail } from "../../actions";
 import { Link, useParams } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 export default function Detail() {
-  console.log();
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const Dog = useSelector((state) => state.datails);
+  const arrDog = Object.values(Dog);
 
   useEffect(() => {
     dispatch(getDogsDetail(id));
   }, []);
 
-  return Dog ? (
+  return (
     <div>
       <h1>{Dog.name}</h1>
       <div>
-        <img
-          src={
-            Dog.image
-              ? Dog.image
-              : "https://e.rpp-noticias.io/large/2016/03/24/055705_104904.jpg"
-          }
-          alt="Img not found"
-        />
+        <img src={Dog.image} alt="Img not found" />
         <div>
           <div>
             <h2>Height:</h2>
@@ -54,7 +48,5 @@ export default function Detail() {
         <button>Volver</button>
       </Link>
     </div>
-  ) : (
-    <div>loading ...</div>
   );
 }

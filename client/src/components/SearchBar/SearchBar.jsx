@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDogsName } from "../../actions/index.js";
+import styles from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
-   function handleInputChange(e) {
+  function handleInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
     dispatch(getDogsName(e.target.value));
@@ -19,19 +20,19 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
+    <div className={styles.box}>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
+        <div className={styles.cont}>
           <input
+            className={styles.input}
             type="text"
             placeholder="Search..."
-            autoComplete="on"
+            autoComplete="of"
             onChange={(e) => handleInputChange(e)}
             value={search}
           />
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
-            Search
-          </button>
+        </div>
+        <div>
         </div>
       </form>
     </div>

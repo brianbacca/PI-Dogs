@@ -1,5 +1,5 @@
 .fondo {
-  background-image: url("https://www.wallpapertip.com/wmimgs/28-286647_262804-title-animal-dachshund-dogs-wallpaper-sausage-dog.jpg");
+  background-image: url("https://i.redd.it/2id3nune4gp71.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -42,8 +42,9 @@
 
 .enter:hover {
   background-color: transparent;
-  color: rgba(17, 6, 6, 0.808);
   height: 50px;
   border-radius: 5px;
-  font-size: 21px;
+  
 }
+
+/* "https://www.wallpapertip.com/wmimgs/28-286647_262804-title-animal-dachshund-dogs-wallpaper-sausage-dog.jpg" */

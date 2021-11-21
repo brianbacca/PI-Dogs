@@ -20,16 +20,14 @@
 
 .carga {
   border: 10px solid #ccc;
-  border-top-color: #f4266a;
+  border-top-color: #444b5a;
   border-top-style: grove;
   height: 50px;
   width: 50px;
   border-radius: 100%;
-  position: absolute;
-  top: 0;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  position: relative;
+  top: 100px;
+  left: -10px;
   margin: auto;
   -webkit-animation: girar1.5s linear infinite;
   -o-animation: girar 1.5s linear infinite;
