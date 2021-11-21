@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDog } from "../../actions";
 import Nav from "../Nav/Nav";
 import SearchBar from "../SearchBar/SearchBar";
+import styles from "./DogCreate.module.css";
 //------------------------------------------------------
 function validate(input) {
   let errors = {};
@@ -132,81 +133,108 @@ export default function DogCreate() {
     }
   }
   return (
-    <div>
+    <div className={styles.divCreate}>
       <Nav />
-      <h1>Crea tu perro</h1>
-      <form onSubmit={(e) => handleSumbit(e)}>
+      <h1 className={styles.title}>Crea tu perro</h1>
+      <form className={styles.form} onSubmit={(e) => handleSumbit(e)}>
         <div>
           <div>
             <label>Name</label>
             <input
+              className={styles.name}
               type="text"
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.name && <p className="danger">{errors.name}</p>}
+            {errors.name && <p className={styles.error1}>{errors.name}</p>}
           </div>
           <div>
-            <label>height.min</label>
+            <label>height-min(Cm)</label>
             <input
+              className={styles.heightMin}
               type="number"
               min="0"
               value={input.height_min}
               name="height_min"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.height_min && <p className="danger">{errors.height_min}</p>}
+            {errors.height_min && (
+              <p className={styles.error}>{errors.height_min}</p>
+            )}
           </div>
           <div>
-            <label>height.max</label>
+            <label>height-max(Cm)</label>
             <input
+              className={styles.heightMax}
               type="number"
               min="0"
               value={input.height_max}
               name="height_max"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.height_max && <p className="danger">{errors.height_max}</p>}
+            {errors.height_max && (
+              <p className={styles.error}>{errors.height_max}</p>
+            )}
           </div>
           <div>
-            <label>weight.min</label>
+            <label>weight-min(Kg)</label>
             <input
+              className={styles.weighMin}
               type="number"
               min="0"
               value={input.weight_min}
               name="weight_min"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.weight_min && <p className="danger">{errors.weight_min}</p>}
+            {errors.weight_min && (
+              <p className={styles.error}>{errors.weight_min}</p>
+            )}
           </div>
           <div>
-            <label>weight.max</label>
+            <label>weight-max(Kg)</label>
             <input
+              className={styles.input}
               type="number"
               min="0"
               value={input.weight_max}
               name="weight_max"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.weight_max && <p className="danger">{errors.weight_max}</p>}
+            {errors.weight_max && (
+              <p className={styles.error}>{errors.weight_max}</p>
+            )}
           </div>
           <div>
-            <label>life span</label>
+            <label>life span (years)</label>
             <input
+              className={styles.lifeSpan}
               type="number"
               min="0"
               value={input.life_span}
               name="life_span"
               onChange={(e) => handleChange(e)}
+              autocomplete="off"
             />
-            {errors.life_span && <p className="danger">{errors.life_span}</p>}
+            {errors.life_span && (
+              <p className={styles.error}>{errors.life_span}</p>
+            )}
           </div>
-          <div>
+          <div className={styles.temp}>
             <select onChange={(e) => handleSelect(e)}>
               {temperaments &&
                 temperaments.map((t) => (
-                  <option name="temperament" key={t} value={t}>
+                  <option
+                    className={styles.temp}
+                    name="temperament"
+                    key={t}
+                    value={t}
+                  >
                     {t}
                   </option>
                 ))}
@@ -215,25 +243,34 @@ export default function DogCreate() {
           <div>
             <label>image</label>
             <input
+              className={styles.input}
               type="text"
               value={input.image}
               name="image"
               onChange={(e) => handleChange(e)}
             />
-            {errors.image && <p className="danger">{errors.image}</p>}
+            {errors.image && <p className={styles.error}>{errors.image}</p>}
           </div>
           <button onSubmit={(e) => handleSumbit(e)}>Sumbit</button>
-        </div>
-        <div>
-          <h4>Temperament:</h4>
-          {input.temperament.map((el) => (
-            <div key={el}>
-              <p>{el}</p>
-              <button onClick={() => handleDelete(el)}>x</button>
-            </div>
-          ))}
+          <div>
+            <label>Temperament:</label>
+            {input.temperament.map((el) => (
+              <ul className={styles.allTemps}>
+                <li>
+                  <p className={styles.temp}>{el}</p>
+                  <button onClick={() => handleDelete(el)}>x</button>
+                </li>
+              </ul>
+            ))}
+          </div>
         </div>
       </form>
+      <div>
+        <img
+          className={styles.image}
+          src="https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg?filter=w500"
+        />
+      </div>
     </div>
   );
 }
