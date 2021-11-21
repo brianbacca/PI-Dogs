@@ -253,7 +253,7 @@ export default function DogCreate() {
           </div>
           <button onSubmit={(e) => handleSumbit(e)}>Sumbit</button>
           <div>
-            <label>Temperament:</label>
+            <label className={styles.tempTi}>Temperament:</label>
             {input.temperament.map((el) => (
               <ul className={styles.allTemps}>
                 <li>
