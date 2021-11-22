@@ -25,8 +25,14 @@
   left: 2px;
 }
 .title {
-  color: #4c5042;
   display: inline;
+  position: relative;
+  left: 930px;
+  top: 17px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 560;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493), 0px 0px 0px black;
+  color: #444b5a;
 }
 
 label {
@@ -42,14 +48,18 @@ label {
 }
 
 input {
-  background-color: #ddbea9;
+  background-color: #444b5a75;
   border-radius: 4px;
   border-color: transparent;
   margin: 10px;
   width: 200px;
+  transition: background 0.8s;
+  height: 20px;
 }
 input:hover {
-  background-color: #ffe8d6;
+  background: #ebeceeef;
+  color: rgba(0, 0, 0, 0.924);
+  border-color: rgb(71, 71, 71);
 }
 
 select {
@@ -57,15 +67,16 @@ select {
   padding: 7px 10px;
   height: 42px;
   font-size: 1em;
-  color: #cb997e;
+  color: #444b5a;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   transition: all 0.25s ease;
   margin: 15px;
+  transition: background 0.8s;
 }
 select:hover {
-  background: #ffe8d6;
-  color: rgb(71, 71, 71);
+  background: #444b5a93;
+  color: rgba(255, 255, 255, 0.924);
   border-color: rgb(71, 71, 71);
 }
 
@@ -75,8 +86,9 @@ select:hover {
   margin: 0;
   position: relative;
   left: -210px;
-  top: 25px;
+  top: 20px;
   display: inline;
+  font-weight: 600;
 }
 .error1 {
   color: red;
@@ -84,10 +96,9 @@ select:hover {
   margin: 0;
   position: relative;
   left: -140px;
-  top: 20px;
   display: inline;
-  top: 25px;
-  /* padding: 20px; */
+  top: 20px;
+  font-weight: 600;
 }
 
 .image {
@@ -101,6 +112,10 @@ select:hover {
 
 .allTemps {
   display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-weight: 560;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493), 0px 0px 0px black;
+  color: #444b5a;
 }
 .allTemps li {
   justify-content: center;
@@ -112,4 +127,35 @@ select:hover {
 }
 .tempTi {
   display: flex;
+}
+
+.button {
+  position: relative;
+  left: 112px;
+  width: 100px;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background-color: #444b5a;
+  color: #ffffff;
+  border: 2px solid #444b5a;
+  border-radius: 1px;
+  background-repeat: no-repeat;
+  background-size: 47px;
+  background-position: 247px 0.5px;
+  outline: none;
+  box-shadow: 0 0 20px rgb(10, 8, 8);
+  transition: background 0.8s;
+}
+
+.button:hover {
+  border: 2px solid #2b3242;
+  background-color: whitesmoke;
+  color: #444b5a;
 }

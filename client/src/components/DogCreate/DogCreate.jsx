@@ -7,6 +7,22 @@ import Nav from "../Nav/Nav";
 import SearchBar from "../SearchBar/SearchBar";
 import styles from "./DogCreate.module.css";
 //------------------------------------------------------
+function tempsDup(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr.slice(i + 1).indexOf(arr[i]) !== 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+// function tieneValoresDuplicados(arreglo) {
+//     if (arreglo instanceof Array) {
+//         for (let i = 0; i < arreglo.length - 1; ++i) {
+//             if (arreglo.slice(i + 1).indexOf(arreglo[i]) !== -1) {
+//                 return true;
+//             }
+//         }
 function validate(input) {
   let errors = {};
   if (!input.name) {
@@ -93,10 +109,12 @@ export default function DogCreate() {
   }
 
   function handleSelect(e) {
-    setInput({
-      ...input,
-      temperament: [...input.temperament, e.target.value],
-    });
+    if (!input.temperament.includes(e.target.value)) {
+      setInput({
+        ...input,
+        temperament: [...input.temperament, e.target.value],
+      });
+    }
   }
   function handleDelete(e) {
     setInput({
@@ -135,7 +153,7 @@ export default function DogCreate() {
   return (
     <div className={styles.divCreate}>
       <Nav />
-      <h1 className={styles.title}>Crea tu perro</h1>
+      <h1 className={styles.title}>Create Dog</h1>
       <form className={styles.form} onSubmit={(e) => handleSumbit(e)}>
         <div>
           <div>
@@ -250,12 +268,10 @@ export default function DogCreate() {
               onChange={(e) => handleChange(e)}
             />
             {errors.image && <p className={styles.error}>{errors.image}</p>}
-          </div>
-          <button onSubmit={(e) => handleSumbit(e)}>Sumbit</button>
-          <div>
             <label className={styles.tempTi}>Temperament:</label>
+
             {input.temperament.map((el) => (
-              <ul className={styles.allTemps}>
+              <ul key={el} className={styles.allTemps}>
                 <li>
                   <p className={styles.temp}>{el}</p>
                   <button onClick={() => handleDelete(el)}>x</button>
@@ -264,6 +280,11 @@ export default function DogCreate() {
             ))}
           </div>
         </div>
+        <button className={styles.button} onSubmit={(e) => handleSumbit(e)}>
+          Create
+        </button>
+
+        <div></div>
       </form>
       <div>
         <img

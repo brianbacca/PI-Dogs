@@ -22,16 +22,19 @@
   box-sizing: border-box;
   font-family: Comic Sans MS;
   /* font-size: 26px; */
-  color: whitesmoke;
+
   outline: none;
   transition: 0.5s;
   box-shadow: 0 0 20px rgba(10, 8, 8, 0.363);
+  text-decoration: none;
 }
 .box:hover input {
   width: 350px;
   background: #272133;
   border-radius: 10px;
   border-color: whitesmoke;
+  color: whitesmoke;
+  text-decoration: none;
 }
 i {
   position: absolute;
@@ -39,7 +42,7 @@ i {
   right: 15px;
   transform: translate(-50%, -50%);
   font-size: 26px;
-  color: #ffd52d;
+
   transition: 0.2s;
 }
 .box:hover i {
