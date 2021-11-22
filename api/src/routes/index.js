@@ -183,7 +183,7 @@ router.get("/dogs/:id", async (req, res) => {
     //realizamos la consulta a la api
     const dosgsId = await getDogsAll();
     //respuesta de la api
-    const result = dosgsId.find((el) => el.id === parseInt(id));
+    const result = dosgsId.filter((el) => el.id === parseInt(id));
     if (result.length === 0) {
       res.status(400).json({ error: "no se encotro el id" });
     } else {

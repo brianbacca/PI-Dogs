@@ -27,6 +27,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogs: action.payload,
         allDogs: action.payload,
+        datails: [],
       };
     case GET_TEMPERAMENTS:
       return {

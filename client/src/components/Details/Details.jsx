@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDogsDetail } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import Nav from "../Nav/Nav";
+import s from "./Details.module.css";
 
 export default function Detail() {
   const { id } = useParams();
@@ -14,39 +16,53 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDogsDetail(id));
-  }, []);
+  }, [id]);
 
-  return (
-    <div>
-      <h1>{Dog.name}</h1>
-      <div>
-        <img src={Dog.image} alt="Img not found" />
-        <div>
-          <div>
-            <h2>Height:</h2>
-            <p>
-              {Dog.height_min}Cm - {Dog.height_max}Cm
-            </p>
+  return Dog.length > 0 ? (
+    Dog.map((b) => {
+      return (
+        <>
+          <Nav />
+          <div className={s.container}>
+            <div className={s.container__card}>
+              <div className={s.left}>
+                <img
+                  src={
+                    b.image
+                      ? b.image
+                      : "https://i.pinimg.com/originals/d7/8c/88/d78c886e714f2d4040b96037dbbaa79d.png"
+                  }
+                  alt="Img not found"
+                  width="400"
+                  className={s.fotito}
+                />
+              </div>
+              <div className={s.right}>
+                <h1 className={s.h1}>{b.name}</h1>
+                <div>
+                  <h4 className={s.height}>Height:</h4>
+                  <p>
+                    {b.height_min}Cm - {b.height_max}Cm
+                  </p>
+                </div>
+                <h4 className={s.margin}>Weight:</h4>
+                <p>
+                  {b.weight_min}Kg - {b.weight_max} Kg
+                </p>
+                <h4 className={s.margin}>Temperaments:</h4>
+                <p>{b.temperament}</p>
+                <h4 className={s.margin}>Life Span:</h4>
+                <p>{b.life_span} years</p>
+              </div>
+            </div>
+            {/* <Link to="/dogs">
+          <button>Volver</button>
+        </Link> */}
           </div>
-          <div>
-            <h2>Weight:</h2>
-            <p>
-              {Dog.weight_min}Kg - {Dog.weight_max} Kg
-            </p>
-          </div>
-          <div>
-            <h2>Life Span:</h2>
-            <p>{Dog.life_span}</p>
-          </div>
-          <div>
-            <h2>Temperaments:</h2>
-          </div>
-          <p>{Dog.temperament}</p>
-        </div>
-      </div>
-      <Link to="/dogs">
-        <button>Volver</button>
-      </Link>
-    </div>
+        </>
+      );
+    })
+  ) : (
+    <Loading />
   );
 }

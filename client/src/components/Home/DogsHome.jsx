@@ -9,6 +9,7 @@ import {
   sortByName,
   sortbyweight,
   spinLoadader,
+  getDogsDetail,
 } from "../../actions/index.js";
 import { Link } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
@@ -21,6 +22,7 @@ export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
+  
   // const loading = useSelector((state) => state.Loading);
 
   //pagina actual-----
@@ -159,7 +161,7 @@ export default function DogsHome() {
                         image={
                           d.image
                             ? d.image
-                            : "https://e.rpp-noticias.io/large/2016/03/24/055705_104904.jpg"
+                            : "https://i.pinimg.com/originals/d7/8c/88/d78c886e714f2d4040b96037dbbaa79d.png"
                         }
                         weight_min={d.weight_min}
                         weight_max={d.weight_max}

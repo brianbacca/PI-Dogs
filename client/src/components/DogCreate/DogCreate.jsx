@@ -40,7 +40,7 @@ function validate(input) {
   }
   if (!input.height_max) {
     errors.height_max = "height max is required";
-  } else if (input.height_max <= input.height_min) {
+  } else if (parseInt(input.height_max) <= parseInt(input.height_min)) {
     errors.height_max = "min cannot be greater than or equal to max";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_max)) {
     errors.height_max = "max value has to be numeric, no comma is allowed";
@@ -54,7 +54,7 @@ function validate(input) {
   }
   if (!input.weight_max) {
     errors.weight_max = "weight max is required";
-  } else if (input.weight_max <= input.weight_min) {
+  } else if (parseInt(input.weight_max) <= parseInt(input.weight_min)) {
     errors.weight_max = "min cannot be greater than or equal to max";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
     errors.weight_max = "max value has to be numeric, no comma is allowed";
@@ -274,7 +274,9 @@ export default function DogCreate() {
               <ul key={el} className={styles.allTemps}>
                 <li>
                   <p className={styles.temp}>{el}</p>
-                  <button onClick={() => handleDelete(el)}>x</button>
+                  <button className={styles.x} onClick={() => handleDelete(el)}>
+                    x
+                  </button>
                 </li>
               </ul>
             ))}
