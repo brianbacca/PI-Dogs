@@ -9,6 +9,7 @@ import {
   SORT_BY_NAME,
   SORT_BY_WEIGHT,
   SPIN_LOADING,
+  GET_DOGS_ERROR,
 } from "../actions/constant.js";
 
 const initialState = {
@@ -118,6 +119,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         Loading: action.payload,
+      };
+    case GET_DOGS_ERROR:
+      return {
+        ...state,
+        dogs: action.error,
       };
 
     default:

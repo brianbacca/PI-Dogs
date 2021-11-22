@@ -24,6 +24,18 @@ margin-left: 30rem;
   padding-left: 140px;
   /* padding-top: 3.9px; */
   /* margin-left:30rem; */
+  position: relative;
+  top: 3px;
+  left: 800px;
+  text-shadow: 0px 0px 10px black, 0px 0px 50px black;
+  text-decoration: none;
+  color: white;
+  font-size: 2em;
+  transition: text-shadow 200ms ease, transform 0.5s;
+}
+.create:hover {
+  transform: translateY(-2px);
+  text-shadow: 0px 0px 40px black, 0px 0px 50px black;
 }
 
 .conteiner {
@@ -58,6 +70,8 @@ margin-left: 30rem;
 }
 
 .name {
+  padding-left: 140px;
+  bottom: 10px;
   position: relative;
   left: -508px;
   text-shadow: 0px 0px 10px black, 0px 0px 50px black;

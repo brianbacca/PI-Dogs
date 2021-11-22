@@ -8,6 +8,7 @@ import {
   SORT_BY_NAME,
   SORT_BY_WEIGHT,
   SPIN_LOADING,
+  GET_DOGS_ERROR,
 } from "./constant.js";
 
 import axios from "axios";
@@ -41,19 +42,27 @@ export function getTemperaments() {
 export function getDogsName(name) {
   return async function (dispatch) {
     try {
-      var dogsByname = await axios.get(
-        `http://localhost:3001/dogs?name=${name}`,
-        {}
-      );
-      return dispatch({
-        type: GET_DOGS_NAME,
-        payload: dogsByname.data,
-      });
+      return await axios
+        .get(`http://localhost:3001/dogs?name=${name}`)
+        .then((json) => dispatch({ type: GET_DOGS_NAME, payload: json.data }))
+        .catch((error) =>
+          dispatch({
+            type: GET_DOGS_ERROR,
+            error: [
+              {
+                name: "Dog not Found",
+                image:
+                  "https://gcdn.emol.cl/humor/files/2016/11/memes-de-perros-1.jpg",
+              },
+            ],
+          })
+        );
     } catch (err) {
       console.log("Error en geetDogsName", err);
     }
   };
 }
+
 export function postDog(payload) {
   console.log(payload);
   return async function (dispatch) {

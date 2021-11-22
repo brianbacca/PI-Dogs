@@ -114,23 +114,23 @@ export default function DogsHome() {
               className={styles.selectInd}
               onChange={(e) => handleSort(e)}
             >
-              <option value="todos">todos</option>
-              <option value="asc">Ascendente </option>
-              <option value="desc">Descendente </option>
+              <option value="todos">All</option>
+              <option value="asc">Ascendant</option>
+              <option value="desc">Descendant</option>
             </select>
             <select
               className={styles.selectInd}
               onChange={(e) => handleSortWeight(e)}
             >
-              <option value="ascW">Asendente</option>
-              <option value="desW">Desendente</option>
+              <option value="ascW">Asc-weight</option>
+              <option value="desW">Des-weight</option>
             </select>
             <select
               className={styles.selectInd}
               onChange={(e) => handleFilterCreated(e)}
             >
-              <option value="All">Todos</option>
-              <option value="created">Creados</option>
+              <option value="All">All</option>
+              <option value="created">Created</option>
               <option value="api">Api</option>
             </select>
             <select
