@@ -9,6 +9,7 @@ import {
   SORT_BY_WEIGHT,
   SPIN_LOADING,
   GET_DOGS_ERROR,
+  POST_DOGS,
 } from "./constant.js";
 
 import axios from "axios";
@@ -63,17 +64,17 @@ export function getDogsName(name) {
   };
 }
 
-export function postDog(payload) {
-  console.log(payload);
-  return async function (dispatch) {
-    try {
-      var post = await axios.post("http://localhost:3001/dog", payload);
-      return post;
-    } catch (err) {
-      console.log("Error en postDog", err);
-    }
-  };
-}
+// export function postDog(payload) {
+//   console.log(payload);
+//   return async function (dispatch) {
+//     try {
+//       var post = await axios.post("http://localhost:3001/dog", payload);
+//       return post;
+//     } catch (err) {
+//       console.log("Error en postDog", err);
+//     }
+//   };
+// }
 
 export function filterByTemps(payload) {
   return {
@@ -134,29 +135,30 @@ export function spinLoadader(paylaod) {
 //   };
 // }
 
-// export const postDog = ({
-//   name,
-//   height_min,
-//   height_max,
-//   weight_min,
-//   weight_max,
-//   life_span,
-//   temperament,
-//   image,
-// }) => {
-//   return async (dispatch) => {
-//     await axios.post("http://localhost:3001/dog", {
-//       name,
-//       height_min,
-//       height_max,
-//       weight_min,
-//       weight_max,
-//       life_span,
-//       temperament,
-//       image,
-//     });
-//      dispatch({
-//       type: POST_DOGS,
-//     });
-//   };
-// };
+export const postDog = ({
+  name,
+  height_min,
+  height_max,
+  weight_min,
+  weight_max,
+  life_span_min,
+  life_span_max,
+  temperament,
+  image,
+}) => {
+  return async (dispatch) => {
+    await axios.post("http://localhost:3001/dog", {
+      name,
+      height_min,
+      height_max,
+      weight_min,
+      weight_max,
+      life_span: life_span_min + " - " + life_span_max + " years",
+      temperament,
+      image,
+    });
+    dispatch({
+      type: POST_DOGS,
+    });
+  };
+};

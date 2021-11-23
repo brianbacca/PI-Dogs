@@ -34,34 +34,43 @@ function validate(input) {
   if (!input.height_min) {
     errors.height_min = "height min is required";
   } else if (input.height_min <= 0) {
-    errors.height_min = "min height should be higher than 0!";
+    errors.height_min = " height should be higher than 0!";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_min)) {
-    errors.height_min = "min value has to be numeric, no comma is allowed";
+    errors.height_min = " value has to be numeric, no comma is allowed";
   }
   if (!input.height_max) {
     errors.height_max = "height max is required";
   } else if (parseInt(input.height_max) <= parseInt(input.height_min)) {
-    errors.height_max = "min cannot be greater than or equal to max";
+    errors.height_max = " cannot be greater than or equal to max";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_max)) {
-    errors.height_max = "max value has to be numeric, no comma is allowed";
+    errors.height_max = " value has to be numeric, no comma is allowed";
   }
   if (!input.weight_min) {
     errors.weight_min = "weight min is required";
   } else if (input.weight_min <= 0) {
-    errors.weight_min = "min weight should be higher than 0!";
+    errors.weight_min = " weight should be higher than 0!";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)) {
-    errors.weight_min = "min value has to be numeric, no comma is allowed";
+    errors.weight_min = " value has to be numeric, no comma is allowed";
   }
   if (!input.weight_max) {
     errors.weight_max = "weight max is required";
   } else if (parseInt(input.weight_max) <= parseInt(input.weight_min)) {
-    errors.weight_max = "min cannot be greater than or equal to max";
+    errors.weight_max = " cannot be greater than or equal to max";
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
-    errors.weight_max = "max value has to be numeric, no comma is allowed";
+    errors.weight_max = " value has to be numeric, no comma is allowed";
   }
 
-  if (!input.life_span) {
-    errors.life_span = "life span is required";
+  if (!input.life_span_min) {
+    errors.life_span_min = "life span min is required";
+  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_min)) {
+    errors.life_span_min = "value has to be numeric, no comma is allowed";
+  }
+  if (!input.life_span_max) {
+    errors.life_span_max = "life span max is required";
+  } else if (parseInt(input.life_span_max) <= parseInt(input.life_span_min)) {
+    errors.life_span_max = " cannot be greater than or equal to max";
+  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_max)) {
+    errors.life_span_max = "value has to be numeric, no comma is allowed";
   }
   if (
     !input.image &&
@@ -71,6 +80,9 @@ function validate(input) {
   ) {
     errors.image =
       "It must be a url, if it is empty, a default image will be given";
+  }
+  if (!input.temperament) {
+    errors.temperament = "temperament is required";
   }
   return errors;
 }
@@ -87,7 +99,8 @@ export default function DogCreate() {
     height_max: "",
     weight_min: "",
     weight_max: "",
-    life_span: "",
+    life_span_min: "",
+    life_span_max: "",
     temperament: [],
     image: "",
   });
@@ -132,18 +145,20 @@ export default function DogCreate() {
       input.height_max !== "" &&
       input.weight_min !== "" &&
       input.weight_max !== "" &&
-      input.life_span !== "" &&
+      input.life_span_min !== "" &&
+      input.life_span_max !== "" &&
       input.temperament.length !== 0
     ) {
       dispatch(postDog(input));
-      alert("perro creado");
+      alert("Dog created!!!");
       setInput({
         name: "",
         height_min: "",
         height_max: "",
         weight_min: "",
         weight_max: "",
-        life_span: "",
+        life_span_min: "",
+        life_span_max: "",
         temperament: [],
         image: "",
       });
@@ -229,18 +244,33 @@ export default function DogCreate() {
             )}
           </div>
           <div>
-            <label>life span (years)</label>
+            <label>life min(years)</label>
             <input
-              className={styles.lifeSpan}
+              className={styles.lifeSpanMin}
               type="number"
               min="0"
-              value={input.life_span}
-              name="life_span"
+              value={input.life_span_min}
+              name="life_span_min"
               onChange={(e) => handleChange(e)}
               autocomplete="off"
             />
-            {errors.life_span && (
-              <p className={styles.error}>{errors.life_span}</p>
+            {errors.life_span_min && (
+              <p className={styles.error2}>{errors.life_span_min}</p>
+            )}
+          </div>
+          <div>
+            <label>life max(years)</label>
+            <input
+              className={styles.lifeSpanMax}
+              type="number"
+              min="0"
+              value={input.life_span_max}
+              name="life_span_max"
+              onChange={(e) => handleChange(e)}
+              autocomplete="off"
+            />
+            {errors.life_span_max && (
+              <p className={styles.error2}>{errors.life_span_max}</p>
             )}
           </div>
           <div className={styles.temp}>
