@@ -4,25 +4,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDog } from "../../actions";
 import Nav from "../Nav/Nav";
-import SearchBar from "../SearchBar/SearchBar";
 import styles from "./DogCreate.module.css";
+
 //------------------------------------------------------
-function tempsDup(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    if (arr.slice(i + 1).indexOf(arr[i]) !== 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-// function tieneValoresDuplicados(arreglo) {
-//     if (arreglo instanceof Array) {
-//         for (let i = 0; i < arreglo.length - 1; ++i) {
-//             if (arreglo.slice(i + 1).indexOf(arreglo[i]) !== -1) {
-//                 return true;
-//             }
-//         }
+
 function validate(input) {
   let errors = {};
   if (!input.name) {
