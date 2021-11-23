@@ -13,16 +13,6 @@
   height: max-content;
 }
 
-.cardsError {
-  padding-top: 200px;
-  width: 100%;
-  max-width: 1200px;
-  height: 430px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-}
 
 .cardLink {
   text-decoration: none;

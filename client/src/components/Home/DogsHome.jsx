@@ -8,21 +8,20 @@ import {
   filterCreated,
   sortByName,
   sortbyweight,
-  spinLoadader,
-  getDogsDetail,
 } from "../../actions/index.js";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
 import Paginado from "../Paginado/Paginado.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Loading from "../Loading/Loading.jsx";
 import Nav from "../Nav/Nav.jsx";
 import styles from "./DogsHome.module.css";
+import s from "../DogCard/DogCard.module.css";
 export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
-  
+
   // const loading = useSelector((state) => state.Loading);
 
   //pagina actual-----
@@ -188,3 +187,7 @@ export default function DogsHome() {
     </div>
   );
 }
+
+// "https://i.pinimg.com/originals/d7/8c/88/d78c886e714f2d4040b96037dbbaa79d.png";
+
+// to={"/dogs/" + d.id}>

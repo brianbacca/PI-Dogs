@@ -52,7 +52,7 @@ export default function Detail() {
                 <h4 className={s.margin}>Temperaments:</h4>
                 <p>{b.temperament}</p>
                 <h4 className={s.margin}>Life Span:</h4>
-                <p>{b.life_span} years</p>
+                <p>{b.life_span}</p>
               </div>
             </div>
             {/* <Link to="/dogs">

@@ -15,11 +15,13 @@ export default function Paginado({ dogsPerPage, allDogs, paginado }) {
         <ul className={styles.ul}>
           {pageNumber &&
             pageNumber.map((number) => (
-              <li key={number} className={styles.list}>
+              <div className={styles.list}>
+              <li key={number} >
                 <a className={styles.num} onClick={() => paginado(number)}>
                   {number}
                 </a>
               </li>
+              </div>
             ))}
         </ul>
       </nav>

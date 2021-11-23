@@ -50,9 +50,9 @@ export function getDogsName(name) {
             type: GET_DOGS_ERROR,
             error: [
               {
-                name: "Dog not Found",
+                name: "The breed was not found, try again",
                 image:
-                  "https://gcdn.emol.cl/humor/files/2016/11/memes-de-perros-1.jpg",
+                  "https://scontent.fcnq2-2.fna.fbcdn.net/v/t1.6435-9/104256655_3367084809992763_5174959565789712579_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=973b4a&_nc_ohc=SASoECbF1zoAX863PqI&_nc_ht=scontent.fcnq2-2.fna&oh=09551e372fd25b73eb71d2bb29aae87f&oe=61C2764F",
               },
             ],
           })
