@@ -10,6 +10,7 @@ import styles from "./DogCreate.module.css";
 
 function validate(input) {
   let errors = {};
+
   if (!input.name) {
     errors.name = "name is required";
   } else if (!/^[A-Z]+[A-Za-z\s]+$/g.test(input.name)) {
@@ -57,26 +58,16 @@ function validate(input) {
   } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_max)) {
     errors.life_span_max = "value has to be numeric, no comma is allowed";
   }
-  if (
-    !input.image &&
-    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/.test(
-      input.image
-    )
-  ) {
-    errors.image =
-      "It must be a url, if it is empty, a default image will be given";
-  }
-  if (!input.temperament) {
-    errors.temperament = "temperament is required";
-  }
   return errors;
 }
 
 //------------------------------------------------
 export default function DogCreate() {
   const dispatch = useDispatch();
-  const temperaments = useSelector((state) => state.temperaments);
 
+  const temperaments = useSelector((state) => state.temperaments);
+  const names = useSelector((state) => state.names);
+  const [errorN, setErrorN] = useState(false);
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
@@ -93,6 +84,13 @@ export default function DogCreate() {
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  function validate_name(input) {
+    if (names.find((b) => b.toUpperCase() === input.toUpperCase()))
+      setErrorN(true);
+    else {
+      setErrorN(false);
+    }
+  }
   function handleChange(e) {
     setInput({
       ...input,
@@ -104,6 +102,7 @@ export default function DogCreate() {
         [e.target.name]: e.target.value,
       })
     );
+    validate_name(e.target.value);
   }
 
   function handleSelect(e) {
@@ -131,8 +130,7 @@ export default function DogCreate() {
       input.weight_min !== "" &&
       input.weight_max !== "" &&
       input.life_span_min !== "" &&
-      input.life_span_max !== "" &&
-      input.temperament.length !== 0
+      input.life_span_max !== ""
     ) {
       dispatch(postDog(input));
       alert("Dog created!!!");
@@ -282,9 +280,7 @@ export default function DogCreate() {
               name="image"
               onChange={(e) => handleChange(e)}
             />
-            {errors.image && <p className={styles.error}>{errors.image}</p>}
             <label className={styles.tempTi}>Temperament:</label>
-
             {input.temperament.map((el) => (
               <ul key={el} className={styles.allTemps}>
                 <li>
@@ -307,6 +303,7 @@ export default function DogCreate() {
         <img
           className={styles.image}
           src="https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg?filter=w500"
+          alt=""
         />
       </div>
     </div>

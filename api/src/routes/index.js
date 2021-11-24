@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { API_KEY } = process.env;
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -7,20 +8,12 @@ const axios = require("axios");
 const { Dog, Temperament } = require("../db");
 
 const router = Router();
-//eliminar los valores duplicados
-Array.prototype.unique = (function (a) {
-  return function () {
-    return this.filter(a);
-  };
-})(function (a, b, c) {
-  return c.indexOf(a, b + 1) < 0;
-});
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
 //get/dogs --trae todas las razas de perros y devuelve los datos de la ruta princial nombre, imagen, temperamento y peso.
-const API_KEY = "9984f51f-f7f5-4fca-9e74-e5263efc358f"; // ponerla en el .env
+
 const getDogsApi = async () => {
   const api = await axios(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
@@ -34,9 +27,7 @@ const getDogsApi = async () => {
       height_max:
         e.height.metric.split(" - ")[1] && e.height.metric.split(" - ")[1],
       weight_min:
-        e.weight.metric.split(" - ")[0] !== "NaN"
-          ? e.weight.metric.split(" - ")[0]
-          : 6,
+        e.weight.metric.split(" - ")[0] && e.weight.metric.split(" - ")[0],
       weight_max:
         e.weight.metric.split(" - ")[1] && e.weight.metric.split(" - ")[1],
       life_span: e.life_span,
@@ -76,8 +67,8 @@ const getDogsAll = async () => {
   return infoTotal;
 };
 
-// usamos la ruta de la query para buscar por nombre
-//.. input
+//---------------------------------------------------------------------------------------------------------
+
 router.get("/dogs", async (req, res) => {
   try {
     const { name } = req.query;
@@ -88,7 +79,7 @@ router.get("/dogs", async (req, res) => {
       });
       dogsName.length
         ? res.status(200).send(dogsName)
-        : res.status(400).send("no esta el peshoo");
+        : res.status(400).send("the breed was not found");
     } else {
       res.status(200).send(dogsTotal);
     }
@@ -101,22 +92,18 @@ router.get("/dogs", async (req, res) => {
 
 router.get("/temperaments", async (req, res) => {
   try {
-    //llamamos a la api
-
     const allTemperaments = await getDogsApi();
 
-    //mapeamos y nos traemos el arreglo de temperamentos
     const temperaments = allTemperaments.map((el) => el.temperament);
-    //quitamos el espacio de algunos temperamentos, aplanamos el array
+
     const temp1 = temperaments.map((e) => e && e.split(", ")).flat();
 
-    //tenemos los elementos repetidos y ademas tenemos un null(serian 2)
     const temp2 = temp1.filter((el) => el && el === el);
-    // console.log(temp2);
-    //quitamos los repetidos
+
     const temp = temp2.filter((el, i) => {
       return temp2.indexOf(el) === i;
     });
+
     if (Temperament.length === 0) {
       for (let i = 0; i < temp.length; i++) {
         Temperament.findOrCreate({
@@ -131,17 +118,8 @@ router.get("/temperaments", async (req, res) => {
   }
 });
 
-//-----------------------------
-// router.get("/names", async (req, res) => {
-//   const allNames = await getDogsAll();
-//   // console.log("nombres", allNames);
-//   const namess = allNames.map((el) => el.name);
-//   res.send(namess);
-// });
 // ----------------------------------------------------------------------------
 
-//--------------------------
-//todo esto me llega por formulario(body)
 router.post("/dog", async (req, res) => {
   let {
     name,
@@ -155,7 +133,6 @@ router.post("/dog", async (req, res) => {
     createInDb,
   } = req.body;
 
-  // no le pasamos los temperamentos, realizamos la funcion aparte
   let dogCreated = await Dog.create({
     name,
     life_span,
@@ -173,10 +150,12 @@ router.post("/dog", async (req, res) => {
   });
   // console.log(temperamentDb);
   await dogCreated.addTemperaments(temperamentDb);
-  res.send("perro creado");
+  res.send("dog created");
 
-  //-----------------------------------
+ 
 });
+
+//----------------------------------------------------------------------------------------------------------
 router.get("/dogs/:id", async (req, res) => {
   try {
     const { id } = req.params;

@@ -12,11 +12,10 @@ export default function Detail() {
   const dispatch = useDispatch();
 
   const Dog = useSelector((state) => state.datails);
-  const arrDog = Object.values(Dog);
 
   useEffect(() => {
     dispatch(getDogsDetail(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   return Dog.length > 0 ? (
     Dog.map((b) => {

@@ -13,7 +13,6 @@
   height: max-content;
 }
 
-
 .cardLink {
   text-decoration: none;
   color: black;
@@ -64,7 +63,7 @@
 
 .button {
   position: relative;
-  left: 645px;
+  left: 632px;
   top: 90px;
   -webkit-appearance: none;
   -moz-appearance: none;

@@ -8,6 +8,7 @@ import {
   filterCreated,
   sortByName,
   sortbyweight,
+  getpage,
 } from "../../actions/index.js";
 import { Link, NavLink } from "react-router-dom";
 import DogCard from "../DogCard/DogCard";
@@ -16,11 +17,12 @@ import SearchBar from "../SearchBar/SearchBar.jsx";
 import Loading from "../Loading/Loading.jsx";
 import Nav from "../Nav/Nav.jsx";
 import styles from "./DogsHome.module.css";
-import s from "../DogCard/DogCard.module.css";
+
 export default function DogsHome() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
+  console.log(allDogs.create)
 
   // const loading = useSelector((state) => state.Loading);
 
@@ -28,32 +30,33 @@ export default function DogsHome() {
   // const [loading, setLoading] = useState(false);
   const [orden, setOrden] = useState("");
   const [ordenAz, setOrdenAz] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const pages = useSelector((state) => state.page);
   //perros por pagina----
   const [dogsPerPage, setDogsPage] = useState(9);
 
   //ultima posicion del perro
-  const indexLastDog = currentPage * dogsPerPage;
+  const indexLastDog = pages * dogsPerPage;
   const indexFirstDog = indexLastDog - dogsPerPage;
 
-  const primeraPag = () => {
-    setCurrentPage(1);
-  };
-  const lastPage = () => {
-    setCurrentPage(Math.ceil(allDogs.length / dogsPerPage));
-  };
+  // const primeraPag = () => {
+  //   setCurrentPage(1);
+  // };
+  // const lastPage = () => {
+  //   setCurrentPage(Math.ceil(allDogs.length / dogsPerPage));
+  // };
   //const que guarde todos los personajes que se tiene en cada pagina
   const currentDogs = allDogs.slice(indexFirstDog, indexLastDog);
+  console.log(currentDogs);
   //seteo la pagina en el numero de pagina que me pasan
   const paginado = (pageNum) => {
-    setCurrentPage(pageNum);
+    dispatch(getpage(pageNum));
   };
 
   //nos traemos del estado los perros cuando el componente se monta.
 
   useEffect(() => {
     dispatch(getDogs());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getTemperaments());
@@ -63,6 +66,7 @@ export default function DogsHome() {
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
+    // dispatch(getpage);
   }
 
   function handleTemp(e) {
@@ -78,13 +82,13 @@ export default function DogsHome() {
   function handleSort(e) {
     e.preventDefault();
     dispatch(sortByName(e.target.value));
-    setCurrentPage(1);
+    // setCurrentPage(1);
     setOrdenAz(`Ordenado ${e.target.value}`);
   }
   function handleSortWeight(e) {
     e.preventDefault();
     dispatch(sortbyweight(e.target.value));
-    setCurrentPage(1);
+    // setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -106,7 +110,7 @@ export default function DogsHome() {
               handleClick(e);
             }}
           >
-            Refresh
+            reset filter
           </button>
         </div>
         <div>
@@ -177,9 +181,8 @@ export default function DogsHome() {
       <div>
         {/* <button onClick={primeraPag}>&lt;</button> */}
         <Paginado
-          primeraPag={primeraPag}
-          dogsPerPage={dogsPerPage}
           allDogs={allDogs.length}
+          dogsPerPage={dogsPerPage}
           paginado={paginado}
         />
       </div>

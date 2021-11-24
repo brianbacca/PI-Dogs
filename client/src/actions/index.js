@@ -162,3 +162,7 @@ export const postDog = ({
     });
   };
 };
+
+export function getpage(payload) {
+  return { type: "PAGE", payload };
+}

@@ -124,6 +124,20 @@ select:hover {
     0px 0px 0px rgba(235, 11, 11, 0.377);
 }
 
+.errorTemp {
+  position: relative;
+  color: red;
+  font-size: small;
+  margin: 0;
+
+  left: 13px;
+  display: inline;
+  top: -13px;
+  font-weight: 600;
+  text-shadow: 0px 0px 10px rgba(250, 17, 17, 0.301),
+    0px 0px 0px rgba(235, 11, 11, 0.377);
+}
+
 .image {
   position: absolute;
   bottom: 200px;

@@ -18,6 +18,8 @@ const initialState = {
   temperaments: [],
   datails: [],
   Loading: false,
+  page: 1,
+  names: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -27,6 +29,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogs: action.payload,
         allDogs: action.payload,
+        names: action.payload.map((b) => b.name),
         datails: [],
       };
     case GET_TEMPERAMENTS:
@@ -60,6 +63,7 @@ export default function rootReducer(state = initialState, action) {
             );
       return {
         ...state,
+
         dogs: tempfiltrados,
       };
     case FILTER_CREATED:
@@ -125,6 +129,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogs: action.error,
+      };
+    case "PAGE":
+      return {
+        ...state,
+        page: action.payload,
       };
 
     default:
