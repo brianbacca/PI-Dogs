@@ -5,10 +5,8 @@ import {
   GET_DETAILS,
   FILTER_TEMPERAMENTS,
   FILTER_CREATED,
-  SORT_BY_NAME,
-  SORT_BY_WEIGHT,
-  SPIN_LOADING,
   GET_DOGS_ERROR,
+  PAGE,
   POST_DOGS,
 } from "./constant.js";
 
@@ -19,24 +17,32 @@ import axios from "axios";
 
 export function getDogs() {
   return async function (dispatch) {
-    var dogs = await axios.get("http://localhost:3001/dogs", {});
-    return dispatch({
-      type: GET_DOGS,
-      payload: dogs.data,
-    });
+    try {
+      var dogs = await axios.get("http://localhost:3001/dogs", {});
+      return dispatch({
+        type: GET_DOGS,
+        payload: dogs.data,
+      });
+    } catch (err) {
+      console.log("error en getDogs", err);
+    }
   };
 }
 
 export function getTemperaments() {
   return async function (dispatch) {
-    var temperaments = await axios.get(
-      "http://localhost:3001/temperaments",
-      {}
-    );
-    return dispatch({
-      type: GET_TEMPERAMENTS,
-      payload: temperaments.data,
-    });
+    try {
+      var temperaments = await axios.get(
+        "http://localhost:3001/temperaments",
+        {}
+      );
+      return dispatch({
+        type: GET_TEMPERAMENTS,
+        payload: temperaments.data,
+      });
+    } catch (err) {
+      console.log("error en getTemperaments ", err);
+    }
   };
 }
 
@@ -64,18 +70,6 @@ export function getDogsName(name) {
   };
 }
 
-// export function postDog(payload) {
-//   console.log(payload);
-//   return async function (dispatch) {
-//     try {
-//       var post = await axios.post("http://localhost:3001/dog", payload);
-//       return post;
-//     } catch (err) {
-//       console.log("Error en postDog", err);
-//     }
-//   };
-// }
-
 export function filterByTemps(payload) {
   return {
     type: FILTER_TEMPERAMENTS,
@@ -90,16 +84,22 @@ export function filterCreated(payload) {
   };
 }
 
-export function sortByName(payload) {
-  return {
-    type: SORT_BY_NAME,
-    payload,
-  };
-}
+// export function sortByName(payload) {
+//   return {
+//     type: SORT_BY_NAME,
+//     payload,
+//   };
+// }
 
-export function sortbyweight(payload) {
+// export function sortbyweight(payload) {
+//   return {
+//     type: SORT_BY_WEIGHT,
+//     payload,
+//   };
+// }
+export function sorti(payload) {
   return {
-    type: SORT_BY_WEIGHT,
+    type: "SORTI",
     payload,
   };
 }
@@ -115,13 +115,6 @@ export function getDogsDetail(id) {
     } catch (err) {
       console.log("error en getDogsDetails", err);
     }
-  };
-}
-
-export function spinLoadader(paylaod) {
-  return {
-    type: SPIN_LOADING,
-    paylaod,
   };
 }
 
@@ -164,5 +157,12 @@ export const postDog = ({
 };
 
 export function getpage(payload) {
-  return { type: "PAGE", payload };
+  return { type: PAGE, payload };
+}
+
+export function loading(payload) {
+  return {
+    type: "LOADING",
+    payload,
+  };
 }

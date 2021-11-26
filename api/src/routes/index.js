@@ -12,8 +12,6 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-//get/dogs --trae todas las razas de perros y devuelve los datos de la ruta princial nombre, imagen, temperamento y peso.
-
 const getDogsApi = async () => {
   const api = await axios(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
@@ -27,7 +25,9 @@ const getDogsApi = async () => {
       height_max:
         e.height.metric.split(" - ")[1] && e.height.metric.split(" - ")[1],
       weight_min:
-        e.weight.metric.split(" - ")[0] && e.weight.metric.split(" - ")[0],
+        e.weight.metric.split(" - ")[0] !== "NaN"
+          ? e.weight.metric.split(" - ")[0]
+          : 6,
       weight_max:
         e.weight.metric.split(" - ")[1] && e.weight.metric.split(" - ")[1],
       life_span: e.life_span,
@@ -143,25 +143,21 @@ router.post("/dog", async (req, res) => {
     createInDb,
     image,
   });
-  //encontrar los temperamentos que me llegen por body(formulario)
-  //los temeramentos los encuentro en Temperament,
+
   let temperamentDb = await Temperament.findAll({
     where: { temperament: temperament },
   });
-  // console.log(temperamentDb);
   await dogCreated.addTemperaments(temperamentDb);
   res.send("dog created");
-
- 
 });
 
 //----------------------------------------------------------------------------------------------------------
 router.get("/dogs/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    //realizamos la consulta a la api
+
     const dosgsId = await getDogsAll();
-    //respuesta de la api
+
     const result = dosgsId.filter((el) => el.id === parseInt(id));
     if (result.length === 0) {
       res.status(400).json({ error: "no se encotro el id" });

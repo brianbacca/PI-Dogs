@@ -49,7 +49,9 @@ export default function Detail() {
                   {b.weight_min}Kg - {b.weight_max} Kg
                 </p>
                 <h4 className={s.margin}>Temperaments:</h4>
-                <p>{b.temperament}</p>
+                <p>
+                  {b.temperament ? b.temperament : "the dog has no temperaments"}
+                </p>
                 <h4 className={s.margin}>Life Span:</h4>
                 <p>{b.life_span}</p>
               </div>

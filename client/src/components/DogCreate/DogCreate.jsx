@@ -1,65 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDog } from "../../actions";
 import Nav from "../Nav/Nav";
 import styles from "./DogCreate.module.css";
-
-//------------------------------------------------------
-
-function validate(input) {
-  let errors = {};
-
-  if (!input.name) {
-    errors.name = "name is required";
-  } else if (!/^[A-Z]+[A-Za-z\s]+$/g.test(input.name)) {
-    errors.name =
-      "the first letter must be capitalized and the name can only contain letters";
-  }
-  if (!input.height_min) {
-    errors.height_min = "height min is required";
-  } else if (input.height_min <= 0) {
-    errors.height_min = " height should be higher than 0!";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_min)) {
-    errors.height_min = " value has to be numeric, no comma is allowed";
-  }
-  if (!input.height_max) {
-    errors.height_max = "height max is required";
-  } else if (parseInt(input.height_max) <= parseInt(input.height_min)) {
-    errors.height_max = " cannot be greater than or equal to max";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_max)) {
-    errors.height_max = " value has to be numeric, no comma is allowed";
-  }
-  if (!input.weight_min) {
-    errors.weight_min = "weight min is required";
-  } else if (input.weight_min <= 0) {
-    errors.weight_min = " weight should be higher than 0!";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)) {
-    errors.weight_min = " value has to be numeric, no comma is allowed";
-  }
-  if (!input.weight_max) {
-    errors.weight_max = "weight max is required";
-  } else if (parseInt(input.weight_max) <= parseInt(input.weight_min)) {
-    errors.weight_max = " cannot be greater than or equal to max";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
-    errors.weight_max = " value has to be numeric, no comma is allowed";
-  }
-
-  if (!input.life_span_min) {
-    errors.life_span_min = "life span min is required";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_min)) {
-    errors.life_span_min = "value has to be numeric, no comma is allowed";
-  }
-  if (!input.life_span_max) {
-    errors.life_span_max = "life span max is required";
-  } else if (parseInt(input.life_span_max) <= parseInt(input.life_span_min)) {
-    errors.life_span_max = " cannot be greater than or equal to max";
-  } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_max)) {
-    errors.life_span_max = "value has to be numeric, no comma is allowed";
-  }
-  return errors;
-}
 
 //------------------------------------------------
 export default function DogCreate() {
@@ -67,8 +11,71 @@ export default function DogCreate() {
 
   const temperaments = useSelector((state) => state.temperaments);
   const names = useSelector((state) => state.names);
-  const [errorN, setErrorN] = useState(false);
   const [errors, setErrors] = useState({});
+
+  //---------------------------------------------------------------------------------------------------
+  function validate(input) {
+    let errors = {};
+    if (!input.name) {
+      errors.name = "name is required";
+    } else if (!/^[A-Z]+[A-Za-z\s]+$/g.test(input.name)) {
+      errors.name =
+        "the first letter must be capitalized and the name can only contain letters";
+    } else if (input.name === names) {
+      errors.name = "la raza ya existe";
+    }
+    if (!input.height_min) {
+      errors.height_min = "height min is required";
+    } else if (input.height_min <= 0) {
+      errors.height_min = " height should be higher than 0!";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_min)) {
+      errors.height_min = " value has to be numeric, no comma is allowed";
+    }
+    if (!input.height_max) {
+      errors.height_max = "height max is required";
+    } else if (parseInt(input.height_max) <= parseInt(input.height_min)) {
+      errors.height_max = " cannot be greater than or equal to max";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.height_max)) {
+      errors.height_max = " value has to be numeric, no comma is allowed";
+    }
+    if (!input.weight_min) {
+      errors.weight_min = "weight min is required";
+    } else if (input.weight_min <= 0) {
+      errors.weight_min = " weight should be higher than 0!";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)) {
+      errors.weight_min = " value has to be numeric, no comma is allowed";
+    }
+    if (!input.weight_max) {
+      errors.weight_max = "weight max is required";
+    } else if (parseInt(input.weight_max) <= parseInt(input.weight_min)) {
+      errors.weight_max = " cannot be greater than or equal to max";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.weight_max)) {
+      errors.weight_max = " value has to be numeric, no comma is allowed";
+    }
+
+    if (!input.life_span_min) {
+      errors.life_span_min = "life span min is required";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_min)) {
+      errors.life_span_min = "value has to be numeric, no comma is allowed";
+    }
+    if (!input.life_span_max) {
+      errors.life_span_max = "life span max is required";
+    } else if (parseInt(input.life_span_max) <= parseInt(input.life_span_min)) {
+      errors.life_span_max = " cannot be greater than or equal to max";
+    } else if (!/^[1-9]\d*(\.\d+)?$/.test(input.life_span_max)) {
+      errors.life_span_max = "value has to be numeric, no comma is allowed";
+    }
+    if (
+      input.image &&
+      !/[a-z0-9-.]+\.[a-z]{2,4}\/?([^\s<>#%",{}\\|^[\]`]+)?$/.test(input.image)
+    ) {
+      errors.image = "It must be a URL or be empty to take a Default Image";
+    }
+
+    return errors;
+  }
+  //-----------------------------------------------------------------------------------------------------
+
   const [input, setInput] = useState({
     name: "",
     height_min: "",
@@ -83,14 +90,6 @@ export default function DogCreate() {
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
-
-  function validate_name(input) {
-    if (names.find((b) => b.toUpperCase() === input.toUpperCase()))
-      setErrorN(true);
-    else {
-      setErrorN(false);
-    }
-  }
   function handleChange(e) {
     setInput({
       ...input,
@@ -102,7 +101,6 @@ export default function DogCreate() {
         [e.target.name]: e.target.value,
       })
     );
-    validate_name(e.target.value);
   }
 
   function handleSelect(e) {
@@ -130,7 +128,8 @@ export default function DogCreate() {
       input.weight_min !== "" &&
       input.weight_max !== "" &&
       input.life_span_min !== "" &&
-      input.life_span_max !== ""
+      input.life_span_max !== "" &&
+      input.image === ""
     ) {
       dispatch(postDog(input));
       alert("Dog created!!!");
@@ -280,6 +279,8 @@ export default function DogCreate() {
               name="image"
               onChange={(e) => handleChange(e)}
             />
+            {errors.image && <p className={styles.image1}>{errors.image}</p>}
+
             <label className={styles.tempTi}>Temperament:</label>
             {input.temperament.map((el) => (
               <ul key={el} className={styles.allTemps}>

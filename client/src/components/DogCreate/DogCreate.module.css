@@ -218,3 +218,18 @@ select:hover {
   width: 100%;
   overflow: hidden;
 }
+
+.image1 {
+  position: relative;
+  left: 150px;
+  color: red;
+  font-size: small;
+  margin: 0;
+  position: relative;
+  left: -218px;
+  display: inline;
+  top: 20px;
+  font-weight: 600;
+  text-shadow: 0px 0px 10px rgba(250, 17, 17, 0.301),
+    0px 0px 0px rgba(235, 11, 11, 0.377);
+}

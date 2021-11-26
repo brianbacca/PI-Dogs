@@ -10,12 +10,6 @@ export default function DogCard({
   weight_min,
   weight_max,
 }) {
-  const doggi = useSelector((state) => state.dogs);
-  const iDs = doggi.map((el) => el.id);
-  const dispatch = useDispatch();
-  function handleReset(e) {
-    dispatch(getDogs());
-  }
   return (
     <div>
       <div className={weight_min || weight_max ? styles.card : styles.error}>
@@ -26,7 +20,9 @@ export default function DogCard({
 
           <div className={styles.otros}>
             <h4>Temperament:</h4>
-            <span>{temperament}</span>
+            <span>
+              {temperament ? temperament : <p>the dog has no temperaments</p>}
+            </span>
           </div>
           <div className={styles.otros}>
             <h4>Weight:</h4>
@@ -35,11 +31,6 @@ export default function DogCard({
             </span>
           </div>
         </li>
-        {temperament || weight_min || weight_max ? (
-          <br></br>
-        ) : (
-          <input type="reset" value="Try Again" onClick={() => handleReset()} />
-        )}
       </div>
     </div>
   );
